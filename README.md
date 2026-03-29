@@ -5,6 +5,7 @@
 -Gradio
 -Ollama
 -Langchain
+-venv
 
 # how to run:
 on the terminal run: 
