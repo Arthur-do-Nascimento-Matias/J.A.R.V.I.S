@@ -1,18 +1,9 @@
+from brain import qwenCoder
+from brain import deepseek 
+from brain import router
+from applications import music_player
+import threading
 import gradio as gr
-from langchain_ollama import OllamaLLM
-from langchain_core.prompts import PromptTemplate
-
-llm = OllamaLLM(model="llama3", temperature=0.3, num_predict=500)
-
-prompt = PromptTemplate.from_template("""Você é um assistente útil, claro e direto, como o ChatGPT.
-Não seja prolixo. Use linguagem natural e amigável.
-
-Histórico de conversa {history}
-
-Usuário: {pergunta}
-IA:""")
-
-chain = prompt | llm
 
 def responder(mensagem, history):
 
@@ -23,8 +14,29 @@ def responder(mensagem, history):
         elif item["role"] == "assistant":
             textHistory += f"IA: {item['content']}\n"
 
-    resposta = chain.invoke({"pergunta": mensagem, "history": textHistory}) 
-    return resposta
+    if "tocar" in mensagem.lower() or "toque" in mensagem.lower() and len(mensagem) < 20:
+        musica = mensagem.replace("tocar", "").replace("toque", "").strip()
+        threading.Thread(
+        target=music_player.tocar_musica,
+        args=(musica,)
+).start()
+        
+        return f"Tocando {musica.title().replace("Tocar", "").replace("Toque", "").strip()}"
+    
+    elif "pausar" in mensagem.lower() or "pause" in mensagem.lower() and len(mensagem) < 10:
+        music_player.pausar()
+        if mensagem == "despause" or mensagem == "despausar":
+            return "Música despausada"
+        else:
+            return "Música pausada"
+
+    else:
+        regente = router.Router(mensagem).strip().lower()
+        if "code" in regente:
+            resposta = qwenCoder.Qwen3(mensagem, textHistory)
+        else:
+            resposta =  deepseek.DeepSeek(mensagem, textHistory)
+        return resposta
 
 interface = gr.ChatInterface(responder, title="J.A.R.V.I.S")
 interface.launch()
