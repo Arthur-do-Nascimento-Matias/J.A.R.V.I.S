@@ -5,10 +5,11 @@
 -Gradio
 -Ollama
 -Langchain
--venv
+-Python_vlc
+-Yt_dlp
 
 # how to run:
 on the terminal run: 
 python chat_ui.py
 
-# this is on current updates, the AI is not fast yet, and it runs locally by now. 
+# this is on current updates 
