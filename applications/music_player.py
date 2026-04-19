@@ -3,6 +3,8 @@ import vlc
 import time
 
 i = 0
+paused = False
+flagPassar = False
 
 player = vlc.MediaPlayer()
 
@@ -23,13 +25,26 @@ def tocar_audio(urls):
         player.set_media(media)
         player.play()
         time.sleep(2)
+        global i
+        numeroDaMusica = i
         while player.is_playing():
             time.sleep(2)
+            if paused:
+                while paused:
+                    time.sleep(2)
+        if numeroDaMusica == i:            
+            global flagPassar
+            flagPassar = True
 
 def tocar_playlist(nome):
     while i < len(nome):
         url = buscar_playlist(nome[i])
+        print('Contador: ', i)
         tocar_audio([url])
+        global flagPassar
+        if flagPassar:
+            flagPassar = False
+            passar_musica()
 
 def tocar_musica(nome):
     url = buscar_playlist(nome)
@@ -46,6 +61,7 @@ def anterior_musica():
     if i > 0:
         player.stop()
         i -= 1
+        print('Contador: ', i)
         return "Música retrocedida"
     else: 
         return "Erro"

@@ -1,0 +1,5 @@
+gradio
+ollama
+langchain
+yt_dlp
+python_vlc

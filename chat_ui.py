@@ -19,4 +19,4 @@ def responder(mensagem, history):
         return regente.capitalize()
 
 interface = gr.ChatInterface(responder, title="J.A.R.V.I.S")
-interface.launch()
+interface.launch(server_name="0.0.0.0", server_port=7860)
