@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.a.r.v.i.s</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="shortcut icon" href="../static/images/jarvisFavicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="fundo-hightech">
+        <div class="diagonal-315" id="diagonal-315-1"></div>
+        <div class="diagonal-315-2" id="diagonal-315-2"></div>
+        <div class="diagonal-315-3" id="diagonal-315-3"></div>
+        <div class="diagonal-315-4" id="diagonal-315-4"></div>
+        <div class="diagonal-315-5" id="diagonal-315-5"></div>
+        <div class="reta" id="reta"></div>
+        <div class="reta" id="reta-2"></div>
+        <div class="reta" id="reta-3"></div>
+        <div class="circulo" id="circulo"></div>
+        <div class="circulo" id="circulo-2"></div>
+        <div class="circulo" id="circulo-3"></div>
+        <div class="circulo" id="circulo-4"></div>
+    </div>
+    <div class="home">
+        <img src="../static/images/jarvis2.gif" alt="" draggable="false"><h1>JARVIS</h1>
+        <div class="enviarPergunta">
+            <textarea id="pergunta" rows="3" cols="50" placeholder="Digite aqui..."></textarea><br>
+            <button id="microfone"><img src="../static/images/microfone.png" alt="" draggable="false"></button>
+            <button id="enviar" onclick="submit()"><img src="../static/images/seta.png" alt="" draggable="false"></button>
+        </div>
+    </div>
+    <div class="resposta-da-ia">
+        <p id="resposta"></p>
+        <audio id="player"></audio>
+    </div>
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+</body>
+</html>

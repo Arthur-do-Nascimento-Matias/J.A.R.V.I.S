@@ -1,6 +1,7 @@
-import threading
-import json
-import random
+import random, json, threading
+from brain import deepseek
+from brain import qwenCoder
+from memory import mem
 from applications import music_player
 
 playlist = []
@@ -8,19 +9,11 @@ flagPlaylist = False
 flagMusic = False
 
 def Router(message):
-
+    
+    textHistory = mem.texthistory
     global flagPlaylist, flagMusic
     msg = message.lower()
 
-    keyWords = ["python", "css", "html", "javascript", "js", "java", "servidor", "servidores",
-                "banco de dados", "xaamp", "sql", "mariadb", "mombodb", "postgree", "postgre",
-                "postgresqul", "c#", "c++", "robotica", "robótica", "modelos de ia",
-                "modelos de inteligencia artificial", "modelo de inteligencia artificial",
-                "modelo de inteligência artificial", "modelos de inteligência artificial",
-                "ollama", "llm", "codigo", "codigos", "código", "códigos", "erro", "bug",
-                "api", "programacao", "programação", "programaçao", "programacão", "funciona?"
-                "funciona", "funciona:"]
-    
     if ("tocar" in msg[0:5] or "toque" in msg[0:5]):
         if "playlist" in message.lower():
             with open("applications/playlist/playlist.json", "r", encoding="utf8") as arquivo:
@@ -96,8 +89,12 @@ def Router(message):
         return "Bem vindo, senhor!"
 
     else:
-        for k in keyWords:
-            if k in message.lower():
-                return "code"
-            
-        return "none"
+        with open("brain/keyWords.json", "r", encoding="utf8") as words:
+            keyWords = json.load(words)
+            for k in keyWords["keyWords"]:
+                if k in msg:
+                    resposta = qwenCoder.Qwen3(msg, textHistory)
+                    return resposta
+                
+        resposta = deepseek.DeepSeek(msg, textHistory)
+        return resposta

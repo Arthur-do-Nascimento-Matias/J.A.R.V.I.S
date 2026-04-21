@@ -1,0 +1,190 @@
+body, html{
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+.fundo-hightech {
+    width: 10vw;
+    height: 10vw;
+    margin-left: 90vw;
+    position: absolute;
+}
+#diagonal-315-1{
+    background-color: aqua;
+    height: 80px;
+    width: 5px;
+    transform: rotate(315deg);
+    margin-left: 40px;
+    margin-top: -25px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#diagonal-315-2{
+    background-color: aqua;
+    height: 50px;
+    width: 5px;
+    transform: rotate(315deg);
+    margin-left: 80px;
+    margin-top: -25px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#diagonal-315-3{
+    background-color: aqua;
+    height: 20px;
+    width: 5px;
+    transform: rotate(315deg);
+    margin-left: 102px;
+    margin-top: 28px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#diagonal-315-4{
+    background-color: aqua;
+    height: 140px;
+    width: 5px;
+    transform: rotate(315deg);
+    margin-left: 90px;
+    margin-top: 55px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#diagonal-315-5{
+    background-color: aqua;
+    height: 70px;
+    width: 5px;
+    transform: rotate(315deg);
+    margin-left: 125px;
+    margin-top: 70px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#reta{
+    background-color: aqua;
+    height: 20px;
+    width: 5px;
+    margin-left: 67px;
+    margin-top: 41px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#reta-2{
+    background-color: aqua;
+    height: 20px;
+    width: 5px;
+    margin-left: 97px;
+    margin-top: 15px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#reta-3{
+    background-color: aqua;
+    height: 20px;
+    width: 5px;
+    margin-left: 41px;
+    margin-top: 58px;
+    border-radius: 10px;
+    position: absolute;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#circulo {
+    background-color: aqua;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 64.32px;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#circulo-2 {
+    background-color: aqua;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 106px;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#circulo-3 {
+    background-color: aqua;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 38.5px;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+#circulo-4 {
+    background-color: aqua;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    margin-top: 74px;
+    margin-left: 97px;
+    animation: pulsar 3s infinite alternate ease-in-out;
+}
+@keyframes pulsar {
+    0% {
+        background-color: #00E5FF;
+    }
+    100% {
+        background-color: #0066CC;
+    }
+}
+.home {
+    text-align: center;
+}
+.home h1{
+    color: aqua;
+    margin-top: -22vw;
+    padding-bottom: 6vw;
+    font-size: 6vw;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px white;
+    text-shadow: 10px 7px 15px white;
+    user-select: none;
+}
+.enviarPergunta {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.home{
+    overflow-y: hidden;
+}
+.home img{
+    width: 50vw;
+    margin-top: -10vh;
+}
+.home textarea{
+    border-radius: 5px;
+    background-color: rgb(27, 27, 27);
+}
+.home button{
+    border-radius: 30px;
+    margin: 0.5vw;
+    height: 3vw;
+}
+.home button img{
+    width: 2vw;
+    margin-top: 0vw;
+}
+.home textarea{
+    color: white;
+}
+#resposta {
+    color: white;
+    text-align: center;
+}

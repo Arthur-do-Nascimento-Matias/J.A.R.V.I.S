@@ -1,4 +1,3 @@
-gradio
 ollama
 langchain
 yt_dlp

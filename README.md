@@ -2,7 +2,6 @@
 
 # Make sure you have installed:
 -Python
--Gradio
 -Ollama
 -Langchain
 -Python_vlc
