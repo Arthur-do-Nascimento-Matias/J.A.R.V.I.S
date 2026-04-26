@@ -2,13 +2,14 @@
 
 # Make sure you have installed:
 -Python
--Ollama
--Langchain
--Python_vlc
--Yt_dlp
+-ollama
+-langchain
+-python_vlc
+-yt_dlp
+-flask
 
 # how to run:
 on the terminal run: 
-python chat_ui.py
+python main.py
 
 # this is on current updates 
