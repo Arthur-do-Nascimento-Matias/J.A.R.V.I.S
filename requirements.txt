@@ -1,0 +1,8 @@
+ollama
+langchain
+yt_dlp
+flask
+groq
+unidecode
+dotenv
+scikit-learn
