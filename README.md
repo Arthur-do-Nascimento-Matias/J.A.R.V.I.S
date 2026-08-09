@@ -11,7 +11,7 @@ Is an AI based on the famous one from Marvel's Iron Man. It is able to answer qu
 -unidecode
 
 # how to run:
-on the terminal run: 
-python main.py
+On the terminal run: 
+python main.py and npm run dev
 
 # this is on current updates so be aware that it may include bugs

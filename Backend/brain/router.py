@@ -40,17 +40,16 @@ def Router(message, model, textHistory):
 
     msg = message.lower().lstrip()
     
-    print(similariedadeParar)
     #Condicionais referentes a outras coisas além de responder perguntas
-    if(similariedadeApresentacao > 0.8):
+    if(similariedadeApresentacao > 0.9):
         return ['Olá! Meu nome é Jarvis, seu assistente pessoal. Estou aqui para responder perguntas e o auxiliar em tarefas através de meu imenso conhecimento. Diferente de outras ferramentas de inteligência artificial, também possuo a capacidade de reproduzir músicas. Fui criado por Arthur Matias, estudante do Senac Criciúma, usando de ferramentas de desenvolvimento web como React e Css, além de linguagens de programação como Python e Javascript.', 'apresentacao', True]
 
-    if (similariedadeAcordaCrianca > 0.8):
+    if (similariedadeAcordaCrianca > 0.9):
         musica = music_player.buscar_musica('should i stay or should i go the clash')
         flagMusic = True
         return ["Bem vindo, senhor!", musica, False]
 
-    elif (similariedadeResenha > 0.8):
+    elif (similariedadeResenha > 0.9):
         return ["Qual resenha devo averiguar, senhor?", 'resenha', False]
     
     elif (similariedadeProximo > 0.8):

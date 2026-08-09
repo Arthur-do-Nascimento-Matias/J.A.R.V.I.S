@@ -11,6 +11,43 @@ body, html{
     height: fit-content;
     transition: all 300ms ease;
 }
+#perguntaCase{
+    display: none;
+    height: 0;
+}
+#selecionarModeloCase{
+    background-color: black;
+    color: white;
+}
+#playerCase{
+    display: none;
+}
+#chatCase{
+    display: none;
+    height: 0;
+}
+#tipoMicrofoneCase{
+    background-color: black;
+    color: white;
+}
+#microfoneCase{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+}
+#microfoneCase.ativo,
+#microfone.ativo{
+    background-image: url(assets/rec.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+}
+#microfoneCase.ativo img,
+#microfone.ativo img {
+    display: none;
+}
 .menu {
   width: 300px;
   height: 100vw;
@@ -104,14 +141,16 @@ body, html{
 }
 @media(max-width: 650px){
 .hamburger input:checked ~ .bar:nth-child(2) {
-    transform: translateX(30.1vh) rotate(45deg);
+    transform: translateX(73vw) rotate(45deg);
   }
-}
-@media(max-width: 650px){
 .hamburger input:checked ~ .bar:nth-child(4) {
-    transform: translateX(26vh) rotate(-45deg);
+    transform: translateY(-18px) translateX(73vw) rotate(-45deg);
+  }
+  .menu{
+    width: 70vw;
   }
 }
+
 .spinner {
   background-image: linear-gradient(rgb(186, 66, 255) 35%,rgb(0, 225, 255));
   width: 100px;
@@ -467,10 +506,6 @@ pre {
     left: 0;
     margin-left: 0vw;
 }
-.tipoMicrofone,
-.selecionarModelo select{
-    margin-left: 10px;
-}
 .enviarPergunta {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: auto;
@@ -635,7 +670,7 @@ canvas{
     position: absolute;
     top: 4%;
     left: 2%;
-    font-size: 15px;
+    font-size: 60%;
     transition: 0.5s;
     background:
     linear-gradient(
@@ -978,7 +1013,9 @@ body.fade{
     opacity: 0;
     transition: 0.5s;
 }
-
+#digitando{
+    left: 4%;
+}
 /*TEXTO JARVIS (C)*/
 .jarvis{
     font-family: 'Exo 2', sans-serif;
@@ -990,9 +1027,6 @@ body.fade{
         #0A84FF,
         #00E5FF
     );
-    filter:
-    drop-shadow(0 0 7px cyan)
-    drop-shadow(0 0 5px rgba(0,255,255,0.7));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1112,6 +1146,9 @@ body.fade{
     0 0 10px cyan;
     animation: carregar 3s infinite;
 }
+#somos{
+    font-size: 25px;
+}
 @keyframes carregar{
     from{
         width: 0%;
@@ -1127,12 +1164,10 @@ body.fade{
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
-
     display: flex;
     justify-content: center;
     gap: 32px;
     flex-wrap: wrap;
-
 }
 
 .container{

@@ -97,8 +97,8 @@ function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatR
 }
 
 /*Ativa e desativa o gravador*/
-export async function toggleMic(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef){
-    chunks = []
+export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef){
+  chunks = []
     console.log('aqui2')
         isrecording = false
         if(processando) return
@@ -122,6 +122,39 @@ export async function toggleMic(tipoMicrofone, setPergunta, setResposta, modeloD
         if(isrecording) {
             console.log('inicio')
             recorder.stop()
+            recorder.start()
+        }
+        else {
+            recorder.stop()
+        }
+    }
+
+export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef, caseMode) {
+    if(caseMode) {
+        document.getElementById('microfoneCase').classList.toggle('ativo')
+    }
+    else{
+        document.getElementById('microfone').classList.toggle('ativo')
+    }
+    chunks = []
+    console.log('aqui2')
+        if(processando) return
+        if(isSettingUp) return
+        if(!recorder) {
+            isSettingUp = true
+            try {
+                await setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
+            } finally {
+                isSettingUp = false
+            }
+        }  
+        if(!canrecord) return
+        isrecording = !isrecording
+        if(isrecording) {
+            console.log('inicio')
+            if(aberto){
+                recorder.stop()
+            }
             recorder.start()
         }
         else {
