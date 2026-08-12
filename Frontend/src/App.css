@@ -521,6 +521,9 @@ pre {
     border-radius: 50px;
     transition: all 300ms ease;
 }
+.enviarPergunta button:hover{
+    cursor: pointer;
+}
 textarea{
     scrollbar-width: none;
     color: rgb(219, 219, 219);

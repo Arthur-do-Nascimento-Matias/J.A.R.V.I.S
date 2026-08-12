@@ -42,6 +42,7 @@ return(
         J.A.R.V.I.S
     </a>
 </h1>
+
 <p className="subTexto">Sistema Neural Integrado</p>
 
 <h2 id="digitando" ref={digitandoRef}></h2>
@@ -54,6 +55,7 @@ return(
     </button>
 </div>
 </div>
+
 <h1 id="somos" ref={somosRef}></h1>
        
     <div className="container">
@@ -68,6 +70,7 @@ return(
     arthur,
     ironman
   )}>
+
     <img src={arthur} alt="Arthur" className="foto-card" />
     <div className="content"></div>
     <h2>Arthur Matias</h2>
@@ -81,6 +84,7 @@ return(
     kaua,
     nosurprises  
     )}>
+
     <img src={kaua} alt="Kaua" className="foto-card" />
     <div className="content"></div>
     <h2>Kauã Nascimento</h2>
@@ -94,6 +98,7 @@ return(
     theo,
     themanwhosoldtheworld
     )}>
+
     <img src={theo} alt="Theo" className="foto-card" />
         <div className="content"></div>
         <h2>Theo Melo</h2>
@@ -107,6 +112,7 @@ return(
     wellington,
     comeasyouare
     )}>
+        
     <img src={wellington} alt="Wellington" className="foto-card" />
     <div className="content">
             <h2>Wellington Dias</h2>

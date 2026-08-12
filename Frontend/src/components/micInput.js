@@ -37,7 +37,7 @@ export function setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef
     }
 }
 
-/*Espera que o gravador tenha data disponivel para junta em um blob.*/
+/*Espera que o gravador tenha data disponivel para juntar em um blob.*/
 function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef) {
     try{
     recorder = new MediaRecorder(stream)
@@ -71,9 +71,7 @@ function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatR
     })
     .then(response => response.text())
     .then(data => {
-        console.log(data)
         /*Depois, a manda para uma requisição para o backend.*/
-        console.log('transcricao')
         jaFalou = false
         submit(data, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
     })
@@ -96,10 +94,9 @@ function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatR
     }
 }
 
-/*Ativa e desativa o gravador*/
+/*Ativa e desativa o gravador quando o modo do microfone está em 'aberto'*/
 export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef){
   chunks = []
-    console.log('aqui2')
         isrecording = false
         if(processando) return
         if(tipoMicrofone == 'aberto') {
@@ -120,7 +117,6 @@ export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, m
         if(!canrecord) return
         isrecording = !isrecording
         if(isrecording) {
-            console.log('inicio')
             recorder.stop()
             recorder.start()
         }
@@ -129,6 +125,7 @@ export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, m
         }
     }
 
+/*Inicia o microfone ao apertar*/
 export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef, caseMode) {
     if(caseMode) {
         document.getElementById('microfoneCase').classList.toggle('ativo')
@@ -137,7 +134,6 @@ export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, 
         document.getElementById('microfone').classList.toggle('ativo')
     }
     chunks = []
-    console.log('aqui2')
         if(processando) return
         if(isSettingUp) return
         if(!recorder) {
@@ -151,7 +147,6 @@ export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, 
         if(!canrecord) return
         isrecording = !isrecording
         if(isrecording) {
-            console.log('inicio')
             if(aberto){
                 recorder.stop()
             }
@@ -162,6 +157,7 @@ export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, 
         }
     }
 
+/*Desativa o microfone automaticamente quando não detecta mais som*/
 function detectarSilencio() {
     let silencio = 0
     setInterval(() => {
@@ -181,7 +177,6 @@ function detectarSilencio() {
         else {
             silencio = 0
         }
-        console.log(silencio)
         if(silencio >= 1300){
             pararGravacao()
             silencio = 0

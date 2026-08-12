@@ -1,5 +1,6 @@
 import microfone from '../assets/microfone.png'
 import seta from '../assets/seta.png'
+import clip from '../assets/clip.png'
 import '../App.css'
 import { useState, useRef, useEffect } from 'react'
 import { handleKeyPress, submit, iniciarThree } from './Script.jsx'
@@ -30,18 +31,21 @@ function Interface() {
 return (
     <>
     <div className="hamburgers">
-  <label className="hamburger">
-    <input type="checkbox" />
-    <span className="bar"></span>
-    <span className="bar"></span>
-    <span className="bar"></span>
+    <label className="hamburger">
+       <input type="checkbox" />
+          <span className="bar"></span>
+          <span className="bar"></span>
+          <span className="bar"></span>
+          
     <div className="menu">
-      <nav>
+      <nav>    
+
         <p>Selecionar modelo de IA:  
           <select className="selecionarModelo" id="selecionarModelo" name="selecionarModelo" value={modeloDeIA} onChange={e => {setModeloDeIA(e.target.value)}}>
           <option value="conversa">Conversação</option>
           <option value="programacao">Programação</option>
         </select></p>
+
         <p>Selecionar modo de microfone:  
           <select className='tipoMicrofone' name="tipoMicrofone" id="tipoMicrofone" value={tipoMicrofone} onChange={e => {setTipoMicrofone(e.target.value)}}>
             <option value="apertar">Aperte para falar</option>
@@ -49,17 +53,22 @@ return (
           </select>
         </p>
         <audio id="player" ref={player} controls></audio>
+
       </nav>
     </div>
     </label>
     </div>
+
+
     <div className="home">
          <div className="enviarPergunta">
             <button id="microfone" onClick={() => toggleMicApertar(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)}><img src={microfone} alt="" draggable="false" id="mic" /></button>
             <textarea id="pergunta" rows="3" cols="50" placeholder="Digite aqui..." onKeyDown={e => handleKeyPress(e, pergunta, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)} value={pergunta} onChange={e => setPergunta(e.target.value)}></textarea><br />
+            <button id="arquivo"><img src={clip} alt="" draggable="false" /></button>
             <button id="enviar" onClick={() => submit(pergunta, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)}><img src={seta} alt="" draggable="false" /></button>
         </div>
     </div>
+    
     <div id="chat" ref={chatRef}></div>
 
     <div className='toaster'>
