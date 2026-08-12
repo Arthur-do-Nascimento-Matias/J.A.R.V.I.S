@@ -1,7 +1,7 @@
 from ollama import chat
 from langchain_core.prompts import PromptTemplate
 
-#Usa o modelo de IA do GPT para responder perguntas.
+#Usa o modelo de IA do Gemma4 para responder perguntas de assuntos diversos.
 #É ativado quando a opção 'conversação' está selecionada no frontend
 prompt = PromptTemplate.from_template("""Você é um assistente útil, claro e direto.
 Não seja prolixo. Use linguagem natural e amigável. Seu nome é JARVIS. 

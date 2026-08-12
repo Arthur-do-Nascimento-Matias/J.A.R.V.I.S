@@ -10,6 +10,8 @@ playlist = []
 flagPlaylist = False
 flagMusic = False
 flagPause = False
+
+#Cria o embendding de cada ação previamente definida
 embToqueMusica = embedding.embeddings('tocar')
 embPassarMusica = embedding.embeddings('passar / proxima')
 embAnteriorMusica = embedding.embeddings('anterior / retroceder')
@@ -28,6 +30,7 @@ def Router(message, model, textHistory):
 
     embMsg = embedding.embeddings(message)
 
+    #Calcula a similariedade da mensagem enviada com as ações previamente definidas
     similariedadeMusica = cosineSimilarity.similariedadeCosseno(embMsg, embToqueMusica)
     similariedadeParar = cosineSimilarity.similariedadeCosseno(embMsg, embPararMusica)
     similariedadeProximo = cosineSimilarity.similariedadeCosseno(embMsg, embPassarMusica)
@@ -42,6 +45,7 @@ def Router(message, model, textHistory):
     
     #Condicionais referentes a outras coisas além de responder perguntas
     if(similariedadeApresentacao > 0.9):
+        #Cada retorno é separado em 3 itens: a mensagem exibida, o que a mensagem se refere e um terceiro valor, podendo ser a flag quando uma playlist está tocando ou o link de uma música 
         return ['Olá! Meu nome é Jarvis, seu assistente pessoal. Estou aqui para responder perguntas e o auxiliar em tarefas através de meu imenso conhecimento. Diferente de outras ferramentas de inteligência artificial, também possuo a capacidade de reproduzir músicas. Fui criado por Arthur Matias, estudante do Senac Criciúma, usando de ferramentas de desenvolvimento web como React e Css, além de linguagens de programação como Python e Javascript.', 'apresentacao', True]
 
     if (similariedadeAcordaCrianca > 0.9):

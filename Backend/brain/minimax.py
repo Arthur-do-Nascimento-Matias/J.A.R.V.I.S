@@ -1,7 +1,7 @@
 from ollama import chat
 from langchain_core.prompts import PromptTemplate
 
-#Usa o modelo de IA da Qwen para responder perguntas.
+#Usa o modelo de IA da Minimax para responder perguntas relacionadas a programação e desenvolvimento.
 #Apenas é ativado quando a opção 'programação' está selecionada no frontend
 prompt = PromptTemplate.from_template("""Você é um assistente útil, claro e direto.
 Não seja prolixo. Use linguagem natural e amigável. Seu nome é JARVIS. 
