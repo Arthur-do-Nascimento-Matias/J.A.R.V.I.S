@@ -71,7 +71,7 @@ return (
     
     <div id="chat" ref={chatRef}></div>
 
-    <div className='toaster'>
+    <div className='toaster' id='toaster'>
      <div id="toast" className="toast" ref={toastRef}></div> 
     </div>
     </>

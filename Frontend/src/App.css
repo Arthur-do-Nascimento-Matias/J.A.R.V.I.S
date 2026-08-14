@@ -3,6 +3,7 @@ body, html{
     padding: 0;
     overflow-x: hidden;
     scrollbar-width: none;
+    scroll-behavior: smooth;
 }
 #root{
     background: #000000;
@@ -319,7 +320,9 @@ body, html{
 
   }
 #chat {
-    width: 90%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    width: 40%;
     max-width: 900px;
     margin: 0 auto;
     padding-bottom: 180px;
@@ -1004,6 +1007,9 @@ canvas{
 @media (max-width: 768px) and (max-width: 1024px) {
     html{
     scroll-behavior: smooth;
+}
+#chat{
+    width: 90%;
 }
 body{
     background-color: #000000;

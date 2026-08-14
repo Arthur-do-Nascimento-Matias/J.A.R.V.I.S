@@ -266,7 +266,10 @@ export function submit(pergunta, setPergunta, setResposta, modeloDeIA, player, c
         if(data.apresentacao){
             document.getElementById('root').style.opacity = 0
         }
-
+        div.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        })
         let textoPlano = data.resposta;
         typeText(div, textoPlano, 5, () => {
             // depois que terminar de digitar → aplica markdown
