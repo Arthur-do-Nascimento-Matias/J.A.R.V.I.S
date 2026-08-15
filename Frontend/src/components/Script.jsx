@@ -150,11 +150,18 @@ function moverEsfera() {
     }
 }
 
-export function abrirMenu(menuRef, refCirculoReator, refCirculoInferior, refBarra) {
+export function abrirMenu(menuRef, refCirculoReator, refBarra) {
     menuRef.current.classList.toggle('ativo')
     refCirculoReator.current.classList.toggle('ativo')
-    refCirculoInferior.current.classList.toggle('ativo')
     refBarra.current.classList.toggle('ativo')
+}
+
+export function atualizarRelogio(refRelogio) {
+    const agora = new Date()
+    const horas = String(agora.getHours()).padStart(2,'0')
+    const minutos = String(agora.getMinutes()).padStart(2,'0')
+    const segundos = String(agora.getSeconds()).padStart(2,'0')
+    refRelogio.current.textContent = `${horas}:${minutos}:${segundos}`
 }
 
 /*Seta eventos de clique para os botões de microfone e de enviar texto, respectivamente*/

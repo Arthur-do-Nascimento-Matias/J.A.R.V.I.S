@@ -3,7 +3,7 @@ import seta from '../assets/seta.png'
 import clip from '../assets/clip.png'
 import '../App.css'
 import { useState, useRef, useEffect } from 'react'
-import { handleKeyPress, submit, iniciarThree, abrirMenu } from './Script.jsx'
+import { handleKeyPress, submit, iniciarThree, abrirMenu, atualizarRelogio } from './Script.jsx'
 import { toggleMicAberto, toggleMicApertar } from './micInput'
 import { color } from 'three/tsl'
 
@@ -17,14 +17,19 @@ function Interface() {
     const chatRef = useRef(null)
     const player = useRef(null)
     const menuRef = useRef(null)
-    const refCirculoInferior = useRef(null)
+    const refRelogio = useRef(null)
     const refCirculoReator = useRef(null)
     const circuloDeDentro = useRef(null)
     const refBarra = useRef(null)
     useEffect(() => {
         const limparThree = iniciarThree()
+        atualizarRelogio(refRelogio)
+        const intervalo = setInterval(() => {
+          atualizarRelogio(refRelogio)
+        }, 1000)
         return() => {
             limparThree()
+            clearInterval(intervalo)
         }
     }, [])
     useEffect(() => {
@@ -36,8 +41,7 @@ function Interface() {
 return (
     <>
     <div className='pulso'>
-      <div className="circuloDeFora" onClick={() => abrirMenu(menuRef, refCirculoReator, refCirculoInferior, refBarra)} ref={refCirculoReator}>
-        <div className='circuloDeMaisDentro' ref={refCirculoInferior}></div>
+      <div className="circuloDeFora" onClick={() => abrirMenu(menuRef, refCirculoReator, refBarra)} ref={refCirculoReator}>
         <div className="circuloDeDentro" ref={circuloDeDentro}></div>
         <div className="barraCirculo" ref={refBarra}></div>
     </div>
@@ -61,6 +65,8 @@ return (
 
       </nav>
     </div>
+
+    <div className='relogio' ref={refRelogio}><p>00:00:00</p></div>
 
 
     <div className="home">
