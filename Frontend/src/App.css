@@ -99,6 +99,11 @@ body, html{
 .barraCirculo.ativo{
     height: 86px;
 }
+.pulso{
+    position: fixed;
+    top: 5px;
+    left: 5px;
+}
 .circuloDeFora{
     background-color: transparent;
     border: solid aqua 2px;
@@ -106,7 +111,6 @@ body, html{
     width: 55px;
     height: 55px;
     display: flex;
-    margin-left: 1%;
     align-items: center;
     justify-content: center;
     transition: all 300ms ease;
@@ -172,6 +176,31 @@ body, html{
     100%{
         transform: rotate(360deg);
     }
+}
+.previsaoTempo{
+    transform: scale(0.6);
+    transform-origin: top right;
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+.headerWeather{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+.headerWeather p{
+    margin-left: 15px;
+    color: white;
 }
 @media(max-width: 650px){
     .menu{
@@ -295,9 +324,12 @@ body, html{
     font-family: 'Exo 2', sans-serif;
     letter-spacing: 8px;
     position: fixed;
-    left: 1%;
-    top: 70px;
+    margin: 0 auto;
+    top: 10px;
+    right: 50%;
+    transform: translateX(50%);
     transition: 0.5s;
+    color: white;
     text-shadow:
     0 0 5px cyan,
     0 0 5px rgba(0,255,255,0.5);
@@ -391,9 +423,11 @@ pre {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: auto;
     max-width: 100vw;
+    height: 60px;
     position: fixed;
     display: inline-flex;
-    margin-bottom:10px ;
+    align-items: center;
+    margin-bottom: 5px;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -404,16 +438,18 @@ pre {
 }
 .enviarPergunta button:hover{
     cursor: pointer;
+    filter: brightness(70%);
 }
 textarea{
     scrollbar-width: none;
     color: rgb(219, 219, 219);
     resize: none;
     outline: 0;
+    height: 45px;
     background-color:#0A0604;
     border: none;
     text-decoration: none;
-    padding-top: 10px;
+    padding-top: 10px;                  
     transition: all 300ms ease;
 }
 .enviarPergunta:hover{
@@ -430,17 +466,17 @@ textarea{
     width: 3vw;
     min-height: 45px;
     min-width: 45px;
-    background-color: white;
     display: flex;
     justify-content: center; 
     align-items: center;   
     background: transparent; 
+    border: none;
 }
 .home button img{
-    width: 2vw;
-    height: 2vw;
-    min-height: 25px;
-    min-width: 25px;
+    width: 1.5vw;
+    height: 1.5vw;
+    min-height: 20px;
+    min-width: 20px;
     margin: 0 auto;
     filter: invert(100%);
 }
@@ -967,6 +1003,7 @@ body.fade{
         transform: scale(1);
     }
 }
+.previsaoTempo,
 .relogio{
     display: none;
 }
