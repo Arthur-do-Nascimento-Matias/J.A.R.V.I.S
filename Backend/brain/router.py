@@ -117,4 +117,3 @@ def Router(message, model, textHistory):
                 
         resposta = gemma.Gemma(message, textHistory)
         return [resposta, 'resposta', False]
- 

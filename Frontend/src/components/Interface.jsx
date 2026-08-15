@@ -3,7 +3,7 @@ import seta from '../assets/seta.png'
 import clip from '../assets/clip.png'
 import '../App.css'
 import { useState, useRef, useEffect } from 'react'
-import { handleKeyPress, submit, iniciarThree } from './Script.jsx'
+import { handleKeyPress, submit, iniciarThree, abrirMenu } from './Script.jsx'
 import { toggleMicAberto, toggleMicApertar } from './micInput'
 import { color } from 'three/tsl'
 
@@ -16,6 +16,11 @@ function Interface() {
     const toastRef = useRef(null)
     const chatRef = useRef(null)
     const player = useRef(null)
+    const menuRef = useRef(null)
+    const refCirculoInferior = useRef(null)
+    const refCirculoReator = useRef(null)
+    const circuloDeDentro = useRef(null)
+    const refBarra = useRef(null)
     useEffect(() => {
         const limparThree = iniciarThree()
         return() => {
@@ -30,14 +35,14 @@ function Interface() {
 
 return (
     <>
-    <div className="hamburgers">
-    <label className="hamburger">
-       <input type="checkbox" />
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          
-    <div className="menu">
+    <div className='pulso'>
+      <div className="circuloDeFora" onClick={() => abrirMenu(menuRef, refCirculoReator, refCirculoInferior, refBarra)} ref={refCirculoReator}>
+        <div className='circuloDeMaisDentro' ref={refCirculoInferior}></div>
+        <div className="circuloDeDentro" ref={circuloDeDentro}></div>
+        <div className="barraCirculo" ref={refBarra}></div>
+    </div>
+    </div>
+    <div className="menu" ref={menuRef}>
       <nav>    
 
         <p>Selecionar modelo de IA:  
@@ -55,8 +60,6 @@ return (
         <audio id="player" ref={player} controls></audio>
 
       </nav>
-    </div>
-    </label>
     </div>
 
 

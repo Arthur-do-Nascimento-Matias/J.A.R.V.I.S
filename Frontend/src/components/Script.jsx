@@ -150,6 +150,13 @@ function moverEsfera() {
     }
 }
 
+export function abrirMenu(menuRef, refCirculoReator, refCirculoInferior, refBarra) {
+    menuRef.current.classList.toggle('ativo')
+    refCirculoReator.current.classList.toggle('ativo')
+    refCirculoInferior.current.classList.toggle('ativo')
+    refBarra.current.classList.toggle('ativo')
+}
+
 /*Seta eventos de clique para os botões de microfone e de enviar texto, respectivamente*/
 /*Seleciona vozes disponíveis*/
 speechSynthesis.onvoiceschanged = () => {
