@@ -1,4 +1,4 @@
-import { submit } from "./Script.jsx"
+import { submit } from "../response/Response"
 
 let setpergunta
 let setresposta

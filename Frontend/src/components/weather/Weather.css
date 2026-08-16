@@ -1,0 +1,30 @@
+.previsaoTempo{
+    transform: scale(0.6);
+    transform-origin: top right;
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+.headerWeather{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: auto;
+}
+.headerWeather p{
+    margin-left: 15px;
+    color: white;
+}
+@media (max-width: 768px) and (max-width: 1024px){
+    .previsaoTempo{
+          display: none;
+    }   
+}

@@ -9,7 +9,7 @@ import wellington from '../assets/kurt.webp'
 import kaua from '../assets/kaua.webp'
 import theo from '../assets/Queen.jpeg'
 import { useState, useRef, useEffect } from 'react'
-import { ativar, transformarRolar, escrever, iniciarThree, status, sumonarCards, abrirModal, fecharModal, escreverSomos } from './Code.jsx'
+import { ativar, transformarRolar, escrever, iniciarThree, status, sumonarCards, abrirModal, fecharModal, escreverSomos } from '../components/IndexCode.jsx'
 
 function Index() {
 

@@ -1,0 +1,19 @@
+.relogio{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 8px;
+    position: fixed;
+    margin: 0 auto;
+    top: 10px;
+    right: 50%;
+    transform: translateX(50%);
+    transition: 0.5s;
+    color: white;
+    text-shadow:
+    0 0 5px cyan,
+    0 0 5px rgba(0,255,255,0.5);
+}
+@media (max-width: 768px) and (max-width: 1024px){
+    .relogio{
+        display: none;
+    }
+}

@@ -1,6 +1,6 @@
 import microfone from '../assets/microfone.png'
 import '../App.css'
-import { toggleMicAberto, toggleMicApertar } from './micInput'
+import { toggleMicAberto, toggleMicApertar } from '../components/microphone/micInput'
 import { useState, useRef, useEffect } from 'react'
 
 function CaseMode(){

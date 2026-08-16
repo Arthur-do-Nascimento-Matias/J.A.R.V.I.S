@@ -1,0 +1,139 @@
+@media(max-width: 650px){
+    .menu{
+        height: 100vh;
+        z-index: 999;
+    }
+}
+@media (max-width: 768px) and (max-width: 1024px) {
+    .circuloDeFora.ativo{
+        transform: translateX(74vw);
+    }
+}
+@media(max-width: 650px){
+  .menu{
+    width: 70vw;
+  }
+}
+.tipoMicrofone,
+.selecionarModelo {
+    background-color: white;
+    color: black;
+    position: relative;
+    left: 0;
+    margin-left: 0vw;
+}
+.tipoMicrofone,
+.selecionarModelo:hover{
+    cursor: pointer;
+}
+.menu {
+  width: 300px;
+  height: 100vw;
+  transform: translateX(-200%);
+  background-color:  #000000;
+  position: fixed;
+  transition: transform 300ms ease-in-out;
+  z-index: 10;
+  border-right: 1.5px solid rgb(14, 32, 39);
+  top: 0;
+  padding-top: 1vw;
+  padding-right: 10px;
+  color: white;
+}
+.menu.ativo{
+    transform: translateX(0%);
+}
+.menu p{
+    width: fit-content;
+    position: relative;
+    z-index: 30;
+    left: 0;
+    margin-left: 1vw;
+}
+.menu nav{
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: left;
+    margin-left: 10px;
+}
+.menu::before{
+  /* overlay sutil para profundidade */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(6, 14, 17), transparent 30%);
+  pointer-events: none;
+}
+.circuloDeFora.ativo{
+    width: 80px;
+    height: 80px;
+}
+.circuloDeFora:hover{
+    filter: brightness(190%);
+}
+.barraCirculo.ativo{
+    height: 86px;
+}
+.pulso{
+    position: fixed;
+    top: 5px;
+    left: 5px;
+}
+.circuloDeFora{
+    background-color: transparent;
+    border: solid aqua 2px;
+    border-radius: 100%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 300ms ease;
+}
+.circuloDeFora.ativo{
+    transform: translateX(320px);
+}
+.circuloDeFora:hover{
+    cursor: pointer;
+}
+.circuloDeDentro{
+    background-color: white;
+    background-image: url(../src/assets/Iron-Man-Arc-Reactor-Core-Avengers-Logo-3-removebg-preview.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: invert(10%);
+    border-radius: 100%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+.barraCirculo{
+    position: absolute;
+    width: 10px;
+    height: 60px;
+    background-color: black;
+    z-index: 2;
+    animation: giro 10s linear infinite;
+}
+@keyframes giro{
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
