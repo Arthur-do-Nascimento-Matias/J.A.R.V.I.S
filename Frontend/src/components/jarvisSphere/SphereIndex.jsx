@@ -6,37 +6,41 @@ export default function Sphere() {
     // ======================
     // CAMERA
     useEffect(() => {
+
+    //=================================================
+    // CENA
+
     const cena = new THREE.Scene();
     // ======================
     // CAMERA
-   const camera = new THREE.PerspectiveCamera(
-       75,
-       window.innerWidth / window.innerHeight,
-       0.01,
-       1000
-   );
-   camera.position.z = 5;
-   camera.position.x = 3;
-   // ======================
-   // RENDERER
-   const gerador = new THREE.WebGLRenderer({
-       alpha: true
-   });
-   gerador.setSize(
-       window.innerWidth,
-       window.innerHeight
-   );
-   gerador.setPixelRatio(
-       window.devicePixelRatio
-   );
-   document.body.appendChild(
-       gerador.domElement
-   );
-   gerador.domElement.style.position = "fixed";
-   gerador.domElement.style.top = "0";
-   gerador.domElement.style.left = "0";
-   gerador.domElement.style.zIndex = "0";
-   gerador.domElement.style.pointerEvents = "none";
+    const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.01,
+        1000
+    );
+    camera.position.z = 5;
+    camera.position.x = 3;
+    // ======================
+    // RENDERER
+    const gerador = new THREE.WebGLRenderer({
+        alpha: true
+    });
+    gerador.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
+    gerador.setPixelRatio(
+        window.devicePixelRatio
+    );
+    document.body.appendChild(
+        gerador.domElement
+    );
+    gerador.domElement.style.position = "fixed";
+    gerador.domElement.style.top = "0";
+    gerador.domElement.style.left = "0";
+    gerador.domElement.style.zIndex = "0";
+    gerador.domElement.style.pointerEvents = "none";
     // ======================
     // ESFERA
     const geometria = new THREE.SphereGeometry(
@@ -59,6 +63,22 @@ export default function Sphere() {
     let alvoY = 0;
     let alvoScale = 1;
     let velocidadeRotacao = 0.005;
+    // ======================
+    // SCROLL DA ESFERA
+    function scrollEsfera() {
+        if(window.scrollY > 100){
+            alvoX = -2.4;
+            alvoY = 2.3;
+            alvoScale = 0.5;
+            velocidadeRotacao = 0.001;
+        }else{
+            alvoX = 0;
+            alvoY = 0;
+            alvoScale = 1;
+            velocidadeRotacao = 0.005;
+        }
+    }
+    window.addEventListener("scroll", scrollEsfera)
     // ======================
     // PARTICULAS
     const particulasGeometria =
@@ -133,14 +153,18 @@ export default function Sphere() {
         esfera.rotation.x =
         mouseY * 0.5;
     };
-        document.addEventListener('mousemove', moverEsfera)
-        return() => {
-            cancelAnimationFrame(frameId)
-            gerador.dispose()
-            cena.clear()
-            gerador.domElement.remove()
-            document.removeEventListener('mousemove', moverEsfera)
-        }
+    
+    document.addEventListener('mousemove', moverEsfera)
+    return() => {
+        cancelAnimationFrame(frameId)
+        gerador.dispose()
+        cena.clear()
+        gerador.domElement.remove()
+        document.removeEventListener('mousemove', moverEsfera)
+        window.removeEventListener("scroll", scrollEsfera)
+    }
+
+
     }, [])
     return null
 }

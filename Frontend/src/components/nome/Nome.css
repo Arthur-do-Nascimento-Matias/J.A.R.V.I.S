@@ -1,0 +1,105 @@
+/* ================================================== */
+/* TEXTO */
+.nome{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 8px;
+    position: fixed;
+    float: right;
+    font-size: 100px;
+    right: 15%;
+    top: 20vh;
+    transition: 0.5s;
+    text-shadow:
+    0 0 5px cyan,
+    0 0 5px rgba(0,255,255,0.5);
+}
+.nome.btn{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 8px;
+    position: fixed;
+    float: right;
+    font-size: 30px;
+    right: 2%;
+    top: -8px;
+    transition: 0.5s;
+    text-shadow:
+    0 0 10px cyan,
+    0 0 30px rgba(0,255,255,0.5);
+    animation: Pulso 2s 1;
+}
+.subTexto{
+    color: white;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 4px;
+    position: absolute;
+    float: right;
+    font-size: 20px;
+    left: 61%;
+    transform: translateX(-50%);
+    top: 41vh;
+    transition: 0.5s;
+}
+
+@keyframes Pulso{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+@media (max-width: 768px) and (max-width: 1024px) {
+    .nome{
+        font-family: 'Exo 2', sans-serif;
+        letter-spacing: 8px;
+        position: fixed;
+        float: right;
+        font-size: 45px;
+        right: 0%;
+        top: 20vh;
+        transition: 0.5s;
+        text-shadow:
+        0 0 5px cyan,
+        0 0 5px rgba(0,255,255,0.5);
+    }
+    .nome.btn{
+        font-family: 'Exo 2', sans-serif;
+        letter-spacing: 8px;
+        position: fixed;
+        float: right;
+        font-size: 30px;
+        right: 2%;
+        top: -8px;
+        transition: 0.5s;
+        text-shadow:
+        0 0 10px cyan,
+        0 0 30px rgba(0,255,255,0.5);
+        animation: Pulso 2s 1;
+        z-index: 10;
+    }
+    .subTexto{
+        color: white;
+        font-family: 'Exo 2', sans-serif;
+        letter-spacing: 4px;
+        position: absolute;
+        float: right;
+        font-size: 15px;
+        right: 2%;
+        top: 31vh;
+        transition: 0.5s;
+    }
+    @keyframes Pulso{
+        0%{
+            transform: scale(1);
+        }
+        50%{
+            transform: scale(1.1);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+}

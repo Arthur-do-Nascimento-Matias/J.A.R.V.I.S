@@ -1,5 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../cards/Cards.css'
+import ironman from '../../assets/musicas/Black Sabbath - Iron Man.mp3'
+import comeasyouare from '../../assets/musicas/come as you are.mp3'
+import nosurprises from '../../assets/musicas/nosurprises.m4a'
+import themanwhosoldtheworld from '../../assets/musicas/The Man Who Sold The World.mp3'
+import arthur from '../../assets/aidentro.webp'
+import wellington from '../../assets/kurt.webp'
+import kaua from '../../assets/kaua.webp'
+import theo from '../../assets/Queen.jpeg'
 
 function aparecerCards() {
 
@@ -24,6 +32,8 @@ function aparecerCards() {
 //APARECER CARDS
 function Cards() {
 
+    let fade = null
+    
     const refModal = useRef(null)
     const refNomeP = useRef(null)
     const refCargo = useRef(null)
@@ -31,7 +41,7 @@ function Cards() {
     const refFoto = useRef(null)
     const refMusica = useRef(null)
     const somosRef = useRef(null)
-
+    const [card, setCard] = useState(null)
 
     const textoSomos = "Quem Somos:";
     let indexSomos = 0;

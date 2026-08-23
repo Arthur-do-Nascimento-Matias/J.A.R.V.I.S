@@ -1,0 +1,135 @@
+.jarvis{
+    font-family: 'Exo 2', sans-serif;
+    text-decoration: none;
+    cursor: default;
+    background:
+    linear-gradient(
+        to right,
+        #0A84FF,
+        #00E5FF
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+/* BOTÃO */
+.botao{
+    position: absolute;
+    float: right;
+    top: 52%;
+    right: 49%;
+    z-index: 999;
+}
+.ativar{
+    position: absolute;
+    width: 32.5vw;
+    height: 10vh;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    font-size: 35px;
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 2px;
+    color: white;
+    background-size: 300% 300%;
+    background:
+    rgba(0,229,255,0.15);
+    box-shadow:
+    0 0 10px rgba(0,229,255,0.4);
+    animation:
+    brilho 5s linear infinite,
+    pulse 2s infinite;
+    transition: all 0.4s ease;
+}
+.ativar:hover{
+    transform: scale(1.03);
+    background:
+    rgba(0,229,255,0.25);
+    box-shadow:
+    0 0 10px rgba(0,229,255,0.8);
+}
+/* ================================================== */
+/* ANIMAÇÕES BOTÃO */
+@keyframes brilho{
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 100%;
+    }
+}
+@keyframes pulse{
+    0%{
+        box-shadow:
+        0 0 5px cyan;
+    }
+    50%{
+        box-shadow:
+        0 0 10px cyan;
+    }
+    100%{
+        box-shadow:
+        0 0 5px cyan;
+    }
+}
+
+@media (max-width: 768px) and (max-width: 1024px) {
+
+    .jarvis{
+        font-family: 'Exo 2', sans-serif;
+        text-decoration: none;
+        cursor: default;
+        background:
+        linear-gradient(
+            to right,
+            #0A84FF,
+            #00E5FF
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    /* ================================================== */
+    /* BOTÃO */
+    .botao{
+        position: absolute;
+        float: right;
+        top: 45%;
+        right: 65%;
+    }
+    .ativar{
+        position: absolute;
+        width: 55.5vw;
+        height: 10vh;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.2);
+        font-size: 35px;
+        font-family: 'Exo 2', sans-serif;
+        letter-spacing: 2px;
+        color: white;
+        background-size: 300% 300%;
+        background:
+        rgba(0,229,255,0.15);
+        box-shadow:
+        0 0 10px rgba(0,229,255,0.4);
+        animation:
+        brilho 5s linear infinite,
+        pulse 2s infinite;
+        transition: all 0.4s ease;
+    }
+    .ativar:hover{
+        transform: scale(1.03);
+        background:
+        rgba(0,229,255,0.25);
+        box-shadow:
+        0 0 10px rgba(0,229,255,0.8);
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1920px) {
+
+    .jarvis{
+        margin-right: 50px;
+    }
+    .ativar{
+        margin-left: 80px;
+    }
+
+}

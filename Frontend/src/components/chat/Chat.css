@@ -183,6 +183,9 @@ pre {
     #loading{
         width: fit-content;
     }
+    #chat{
+        width: 90%;
+    }
 }
 @keyframes bounce {
     0%, 80%, 100% {

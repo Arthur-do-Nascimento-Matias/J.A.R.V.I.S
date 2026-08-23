@@ -115,3 +115,88 @@
     }
 }
 /*====================================================*/
+#nomeP{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 5px;
+}
+#nomeP span{
+    color: cyan;
+    text-shadow:
+    0 0 5px cyan,
+    0 0 10px rgba(0,255,255,0.5);
+}
+#cargo{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 5px;
+}
+#cargo span{
+    color: cyan;
+    text-shadow:
+    0 0 5px cyan,
+    0 0 10px rgba(0,255,255,0.5);
+}
+#descricao{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 5px;
+}
+#descricao span{
+    color: cyan;
+    text-shadow:
+    0 0 5px cyan,
+    0 0 10px rgba(0,255,255,0.5);
+}
+/* ================================================== */
+/*VÍDEO*/
+#introVideo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 9999;
+    display: none;
+    background: black;
+    overflow-y: hidden;
+}
+
+@media (max-width: 768px) and (max-width: 1024px) {
+    #somos{
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 1600px) and (max-width: 1920px) {
+
+    .cards {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+    }
+
+    .container{
+        margin-left: 120px;
+    }
+
+}
+
+@media (min-width: 1440px) and (max-width: 1600px) {
+    .container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cards{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+}

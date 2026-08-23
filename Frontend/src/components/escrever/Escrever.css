@@ -1,0 +1,28 @@
+#digitando{
+    font-family: 'Exo 2', sans-serif;
+    letter-spacing: 3px;
+    position: absolute;
+    top: 4%;
+    left: 2%;
+    font-size: 60%;
+    transition: 0.5s;
+    background:
+    linear-gradient(
+        to right,
+        hsl(209, 100%, 81%),
+        #ffffff
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter:
+    drop-shadow(0 0 7px cyan)
+    drop-shadow(0 0 5px rgba(0,255,255,0.7));
+    font-weight: 700;
+}
+@media (max-width: 768px) and (max-width: 1024px) {
+
+    #digitando{
+        left: 4%;
+    }
+    
+}

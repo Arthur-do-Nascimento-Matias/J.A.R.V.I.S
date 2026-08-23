@@ -8,3 +8,18 @@
     opacity: 0.5;
     font-family: monospace;
 }
+.sync{
+    position: fixed;
+    z-index: 50;
+    top: 92%;
+    left: 1%;
+    color: cyan;
+    font-family: monospace;
+    border: 1px solid rgba(0,255,255,0.3);
+    padding: 5px;
+    background: rgba(0,255,255,0.05);
+    backdrop-filter: blur(3px);
+    box-shadow:
+    0 0 10px rgba(0,255,255,0.2);
+    letter-spacing: 2px;
+}
