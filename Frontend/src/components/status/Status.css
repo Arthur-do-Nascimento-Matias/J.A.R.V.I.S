@@ -1,0 +1,10 @@
+.status{
+    position: absolute;
+    top: 5%;
+    right: 30px;
+    color: cyan;
+    font-size: 12px;
+    letter-spacing: 3px;
+    opacity: 0.5;
+    font-family: monospace;
+}

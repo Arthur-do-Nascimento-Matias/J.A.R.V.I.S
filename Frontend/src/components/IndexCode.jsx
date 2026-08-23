@@ -175,97 +175,10 @@ function moverEsfera() {
         window.removeEventListener("scroll", scrollEsfera)
     }
 }
-//=====================
-//TEXTO MUDANDO
-export function status(statusRef) {
-const mensagens = [
-    "SYNC 45%",
-    "SYNC 63%",
-    "SYNC 100%",
-    "SYNC 89%",
-    "SYNC 97%"
-];
-let index = 0;
-setInterval(() => {
-    index++;
-    if(index >= mensagens.length){
-        index = 0;
-    }
-    statusRef.current.textContent = mensagens[index];
-}, 1000);
-}
-//=====================
-//APARECER CARDS
-export function sumonarCards() {
-const cards = document.querySelectorAll('.card');
-function aparecerCards() {
-    cards.forEach((card, index) => {
-        if(window.scrollY > 50 + (index * 100)) {
-            card.classList.add('aparecer');
-        } else {
-            card.classList.remove('aparecer');
-        }
-    });
-};
-window.addEventListener('scroll', aparecerCards)
-return() => {
-    window.removeEventListener('scroll', aparecerCards)
-}
-}
+
 //=====================
 //MODAL (POPUP)
 
-export function abrirModal(nomePessoa, cargoPessoa, texto, imagem, audio){
-
-    const modal = document.getElementById('modal');
-    const nomeP = document.getElementById('nomeP');
-    const cargo = document.getElementById('cargo');
-    const descricao = document.getElementById('descricao');
-    const foto = document.getElementById('foto');
-    const musica = document.getElementById("musica");
-
-    modal.style.display = 'flex';
-    nomeP.innerHTML = nomePessoa;
-    cargo.innerHTML = cargoPessoa;
-    descricao.innerHTML = texto;
-    foto.src = imagem;
-    musica.src = audio;
-    musica.loop = true;
-    musica.volume = 0; 
-    musica.play();
-    let volume = 0;
-    fade = setInterval(() => {
-    if(volume < 0.3){
-        volume += 0.01;
-        musica.volume = volume;
-    }else{
-        clearInterval(fade);
-    }
-}, 100);
-}
-
-function esperar(tempo) {
-    return new Promise(resolve => setTimeout(resolve, tempo))
-}
-
-window.abrirModal = abrirModal
-export async function fecharModal(){
-    clearInterval(fade)
-    const modal = document.getElementById('modal');
-    const musica = document.getElementById("musica");
-    musica.volume = 0.3
-    let volume = musica.volume
-    modal.style.display = 'none';
-    while(volume > 0.01) {
-        musica.volume -= 0.01
-        volume = musica.volume;
-        if(volume < 0.01) {
-            volume = 0
-            musica.volume = 0
-        }
-        await esperar(100)
-    }
-}
 //=====================
 //TEXTO ESCREVENDDO
 const texto = "INICIALIZANDO J.A.R.V.I.S";
@@ -283,21 +196,6 @@ export function escrever(digitandoRef){
         setTimeout(() => {
             escrever(digitandoRef)
         }, 100);
-    }
-}
-
-const textoSomos = "Quem Somos:";
-let indexSomos = 0;
-// =======================
-export function escreverSomos(somosRef){
-
-    if(indexSomos < textoSomos.length){
-
-        somosRef.current.textContent += textoSomos.charAt(indexSomos);
-
-        indexSomos++;
-
-        setTimeout(() => escreverSomos(somosRef), 200);
     }
 }
 
