@@ -37,6 +37,7 @@ function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, play
                 <select className="selecionarModelo" id="selecionarModelo" name="selecionarModelo" value={modeloDeIA} onChange={e => {setModeloDeIA(e.target.value)}}>
                 <option value="conversa">Conversação</option>
                 <option value="programacao">Programação</option>
+                <option value="offline">Offline</option>
             </select></p>
     
             <p>Selecionar modo de microfone:  

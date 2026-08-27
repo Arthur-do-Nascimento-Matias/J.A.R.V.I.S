@@ -4,16 +4,19 @@
         z-index: 999;
     }
 }
+
 @media (max-width: 768px) and (max-width: 1024px) {
     .circuloDeFora.ativo{
         transform: translateX(74vw);
     }
 }
+
 @media(max-width: 650px){
-  .menu{
-    width: 70vw;
-  }
+    .menu{
+        width: 70vw;
+    }
 }
+
 .tipoMicrofone,
 .selecionarModelo {
     background-color: white;
@@ -28,7 +31,7 @@
 }
 .menu {
   width: 300px;
-  height: 100vw;
+  height: 100vh;
   transform: translateX(-200%);
   background-color:  #000000;
   position: fixed;

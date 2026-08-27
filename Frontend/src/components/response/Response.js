@@ -2,7 +2,6 @@ import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 import DOMpurify from 'dompurify'
 import { showMusicToast } from "../toaster/Toaster";
 
-    let frameId
     let vozes = []
     let flagGerarResposta = true
     let varToastRef

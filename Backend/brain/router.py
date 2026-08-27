@@ -4,6 +4,7 @@ from brain import cosineSimilarity
 from brain import embedding 
 from brain import gemma
 from brain import minimax
+from brain import qwen
 from applications import music_player
 
 playlist = []
@@ -113,7 +114,11 @@ def Router(message, model, textHistory):
     else:
         if model == 'programacao':
             resposta = minimax.Minimax(message, textHistory)
-            return resposta
+            return [resposta, 'resposta', False]
                 
+        elif model == 'offline':
+            resposta = qwen.Qwen(message, textHistory)
+            return [resposta, 'resposta', False]
+
         resposta = gemma.Gemma(message, textHistory)
         return [resposta, 'resposta', False]
