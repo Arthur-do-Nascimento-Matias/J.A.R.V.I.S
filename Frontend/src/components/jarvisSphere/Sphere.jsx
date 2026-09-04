@@ -38,6 +38,16 @@ export default function Sphere() {
     gerador.domElement.style.left = "0";
     gerador.domElement.style.zIndex = "0";
     gerador.domElement.style.pointerEvents = "none";
+    gerador.domElement.style.opacity = "0";
+    gerador.domElement.style.transition = "opacity 1.5s ease";
+
+    // Força o navegador a aplicar o opacity 0 primeiro
+    gerador.domElement.offsetHeight;
+
+    // Agora inicia o fade
+    requestAnimationFrame(() => {
+        gerador.domElement.style.opacity = "1";
+    });
     // ======================
     // ESFERA
     const geometria = new THREE.SphereGeometry(
@@ -143,5 +153,6 @@ export default function Sphere() {
             document.removeEventListener('mousemove', moverEsfera)
         }
     }, [])
+
     return null
 }

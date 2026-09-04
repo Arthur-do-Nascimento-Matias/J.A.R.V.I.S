@@ -6,12 +6,16 @@ body, html{
     scroll-behavior: smooth;
 }
 #root{
-    background: #000000;
-    background: radial-gradient(circle,rgb(14, 32, 39) 0%, rgba(0, 0, 0, 1) 50%, rgba(5, 5, 5, 1) 100%);
+    background: black;
     width: 100vw;
     height: fit-content;
     transition: all 300ms ease;
 }
+
+.fadeInterface{
+    animation: fade 1.5s linear;
+}
+
 #perguntaCase{
     display: none;
     height: 0;
@@ -100,3 +104,11 @@ body.fade{
 
 }
 
+@keyframes fade{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

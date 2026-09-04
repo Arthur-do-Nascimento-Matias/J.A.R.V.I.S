@@ -1,4 +1,5 @@
 import '../App.css' 
+
 import Sphere from '../components/jarvisSphere/Sphere.jsx'
 import Menu from '../components/menu/Menu.jsx'
 import Weather from '../components/weather/Weather.jsx'
@@ -16,50 +17,52 @@ function Interface() {
         const [pergunta, setPergunta] = useState("")
         const [resposta, setResposta] = useState("")
         const chatRef = useRef(null)
- 
 
 return (
     <>
 
-    <Sphere />
-    
-    <Menu 
-      setModeloDeIA={setModeloDeIA} 
-      modeloDeIA={modeloDeIA}
-      setTipoMicrofone={setTipoMicrofone}
-      tipoMicrofone={tipoMicrofone}
-      player={player}
-      pergunta={pergunta}
-      setPergunta={setPergunta}
-      resposta={resposta}
-      setResposta={setResposta}
-      chatRef={chatRef}
-      />
+      <div className='fadeInterface'>
 
-    <Weather />
+        <Sphere />
+        
+        <Menu 
+          setModeloDeIA={setModeloDeIA} 
+          modeloDeIA={modeloDeIA}
+          setTipoMicrofone={setTipoMicrofone}
+          tipoMicrofone={tipoMicrofone}
+          player={player}
+          pergunta={pergunta}
+          setPergunta={setPergunta}
+          resposta={resposta}
+          setResposta={setResposta}
+          chatRef={chatRef}
+          />
 
-    <Clock />
+        <Weather />
 
-    <Toaster 
-      toastRef={toastRef}
-    />
+        <Clock />
 
-    <Chat 
-      setModeloDeIA={setModeloDeIA} 
-      modeloDeIA={modeloDeIA}
-      setTipoMicrofone={tipoMicrofone}
-      tipoMicrofone={tipoMicrofone}
-      player={player}
-      toastRef={toastRef}
-      pergunta={pergunta}
-      setPergunta={setPergunta}
-      resposta={resposta}
-      setResposta={setResposta}
-      chatRef={chatRef}
-      />
+        <Toaster 
+          toastRef={toastRef}
+        />
+
+        <Chat 
+          setModeloDeIA={setModeloDeIA} 
+          modeloDeIA={modeloDeIA}
+          setTipoMicrofone={tipoMicrofone}
+          tipoMicrofone={tipoMicrofone}
+          player={player}
+          toastRef={toastRef}
+          pergunta={pergunta}
+          setPergunta={setPergunta}
+          resposta={resposta}
+          setResposta={setResposta}
+          chatRef={chatRef}
+          />
+
+    </div>
 
     </>
-
 )}
 
 export default Interface
