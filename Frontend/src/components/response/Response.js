@@ -133,6 +133,7 @@ import { showMusicToast } from "../toaster/Toaster";
             if (data.tocar) {
                 player.current.play()
             }
+            console.log(data.audio + 'oi')
             if (data.audio) {
                 player.current.src = data.audio
                 player.current.play()

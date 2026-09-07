@@ -28,6 +28,7 @@
     border: 2.5px solid rgb(14, 32, 39);
     border-radius: 50px;
     transition: all 300ms ease;
+    z-index: 900;
 }
 .enviarPergunta button:hover{
     cursor: pointer;

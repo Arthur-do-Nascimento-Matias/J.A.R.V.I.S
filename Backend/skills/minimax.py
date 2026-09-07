@@ -19,7 +19,7 @@ def Minimax(entrada, textHistory):
     mensagem = prompt.format(history=textHistory, pergunta=entrada) 
 
     response = chat(
-        model='minimax-m3:cloud',
+        model='gpt-oss:120b-cloud',
         messages=[{"role": "user", "content": mensagem}]
     )
 

@@ -22,7 +22,7 @@
 
     pointer-events: none;
     max-width: 260px;
-    z-index: 100;
+    z-index: 999;
 }
 
 .toast.show {
