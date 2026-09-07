@@ -25,7 +25,6 @@ def submit():
 
         comando = intents.Minimax(pergunta)
 
-        print('depois do intent')
         resposta = router.executar(comando, pergunta, modelo, textHistory)
         #Interpreta como formatar a resposta recebida
         return jsonify(resposta)

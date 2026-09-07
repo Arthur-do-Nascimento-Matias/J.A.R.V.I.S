@@ -26,10 +26,6 @@ function CaseMode(){
                   <option value="apertar">Aperte para falar</option>
                   <option value="aberto">Aberto</option>
               </select>
-              <select className="selecionarModelo" id="selecionarModeloCase" name="selecionarModelo" value={modeloDeIA} onChange={e => {setModeloDeIA(e.target.value)}}>
-                 <option value="conversa">Conversação</option>
-                 <option value="programacao">Programação</option>
-             </select>
              <audio id="playerCase" ref={player} controls></audio>
         </>
     )

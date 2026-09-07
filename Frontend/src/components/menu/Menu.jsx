@@ -33,13 +33,6 @@ function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, play
         <div className="menu" ref={menuRef}>
             <nav>    
     
-            <p>Selecionar modelo de IA:  
-                <select className="selecionarModelo" id="selecionarModelo" name="selecionarModelo" value={modeloDeIA} onChange={e => {setModeloDeIA(e.target.value)}}>
-                <option value="conversa">Conversação</option>
-                <option value="programacao">Programação</option>
-                <option value="offline">Offline</option>
-            </select></p>
-    
             <p>Selecionar modo de microfone:  
                 <select className='tipoMicrofone' name="tipoMicrofone" id="tipoMicrofone" value={tipoMicrofone} onChange={e => {setTipoMicrofone(e.target.value)}}>
                 <option value="apertar">Aperte para falar</option>

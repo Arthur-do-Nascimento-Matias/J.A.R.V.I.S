@@ -6,11 +6,13 @@ INTENTS = [
     "tocar_musica",
     "tocar_playlist",
     "parar_musica",
+    "despausar_musica",
+    "retroceder_musica",
+    "avancar_musica",
+    "averiguar_resenha",
+    "acorda_crianca",
     "perguntar_hora",
     "perguntar_data",
-    "abrir_aplicativo",
-    "pesquisar",
-    "conversa"
 ]
 
 #Usa o modelo de IA da Minimax para responder perguntas relacionadas a programação e desenvolvimento.
@@ -22,13 +24,13 @@ Intenções permitidas: INTENTS = [
     "tocar_musica",
     "tocar_playlist",
     "parar_musica",
+    "despausar_musica",
     "retroceder_musica",
     "avancar_musica",
     "averiguar_resenha",
-    "acorda criança, o papai chegou",
+    "acorda_crianca",
     "perguntar_hora",
     "perguntar_data",
-    "conversa"
 ]
 
 1. O campo "intent" deve conter SOMENTE uma das intents permitidas.
@@ -39,6 +41,7 @@ Intenções permitidas: INTENTS = [
 6. Não escreva explicações.
 7. Não use markdown.
 8. Não coloque o JSON dentro de ```.
+9. Coloque os parametros necessários, como nome da música, localizacão e entre outros
 
             Perguntas do usuario: 
             {pergunta}
@@ -47,7 +50,7 @@ Intenções permitidas: INTENTS = [
 
         {{
             "intent": "",
-            "parameters": {{}}
+            "parameters": "",
         }}
 
             """)
