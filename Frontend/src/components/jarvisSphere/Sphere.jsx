@@ -46,7 +46,7 @@ export default function Sphere() {
 
     // Agora inicia o fade
     requestAnimationFrame(() => {
-        gerador.domElement.style.opacity = "1";
+        gerador.domElement.style.opacity = "0.7";
     });
     // ======================
     // ESFERA

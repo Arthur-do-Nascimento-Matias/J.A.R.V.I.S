@@ -19,7 +19,7 @@ def jarvis_thinking(pergunta, textHistory, modelo):
     mensagem = prompt.format(history=textHistory, pergunta=pergunta) 
 
     response = chat(
-        model='gpt-oss:120b-cloud',
+        model='gemma4:31b-cloud',
         messages=[{"role": "user", "content": mensagem}]
     )
 

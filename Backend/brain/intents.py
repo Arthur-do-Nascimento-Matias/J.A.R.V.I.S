@@ -9,7 +9,6 @@ INTENTS = [
     "despausar_musica",
     "retroceder_musica",
     "avancar_musica",
-    "averiguar_resenha",
     "acorda_crianca",
     "perguntar_hora",
     "perguntar_data",
@@ -27,7 +26,6 @@ Intenções permitidas: INTENTS = [
     "despausar_musica",
     "retroceder_musica",
     "avancar_musica",
-    "averiguar_resenha",
     "acorda_crianca",
     "perguntar_hora",
     "perguntar_data",
@@ -72,6 +70,5 @@ def Minimax(entrada):
     if not isinstance(resultado["parameters"], dict):
         resultado["parameters"] = {}    
 
-    print(resultado)
     return resultado
     

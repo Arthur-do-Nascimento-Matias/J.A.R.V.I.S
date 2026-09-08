@@ -7,9 +7,6 @@ from skills.music_player import (
     avancar_musica,
     acorda_crianca
 )
-from skills.averiguar_resenha import (
-    averiguar_resenha
-)
 from skills.jarvis_thinking import (
     jarvis_thinking
 )
@@ -24,7 +21,6 @@ class Router:
                 "despausar_musica": despausar_musica,
                 "retroceder_musica": retroceder_musica,
                 "avancar_musica": avancar_musica,
-                "averiguar_resenha": averiguar_resenha,
                 "acorda_crianca": acorda_crianca,
                 "perguntar_hora": 'perguntar_hora',
                 "perguntar_data": 'perguntar_data',
