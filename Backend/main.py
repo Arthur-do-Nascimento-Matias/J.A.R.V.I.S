@@ -36,8 +36,9 @@ def submit():
 #Rota que é chamada para passar a música de uma playlist
 @app.route('/nextMusic', methods=['POST'])
 def proxima():
-    resposta = music_player.buscar_playlist()
-    return jsonify({'audio': resposta[0], 'musica': resposta[1:3]})
+    print('hello')
+    resposta = music_player.avancar_musica()
+    return jsonify({'audio': resposta["audio"], 'musica': resposta["musica"]})
 
 if __name__ in '__main__':
     app.run(debug=True)

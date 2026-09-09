@@ -105,7 +105,7 @@ textarea{
 }
 /* base das mensagens */
 .mensagem {
-    max-width: 75%;
+    max-width: fit-content;
     padding: 14px 18px;
     border-radius: 16px;
     word-wrap: break-word;
@@ -113,6 +113,7 @@ textarea{
     font-size: 15px;
     transition: all 300ms ease;
     box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease;
 }
 
 .usuario {
@@ -139,9 +140,6 @@ textarea{
     transform: translateY(-3px);
 }
 
-.mensagem {
-    animation: fadeIn 0.8s ease;
-}
 #loading {
     opacity: 0.6;
     font-style: italic;

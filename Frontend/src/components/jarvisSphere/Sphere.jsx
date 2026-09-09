@@ -131,26 +131,11 @@ export default function Sphere() {
         gerador.render(cena, camera);
     }
     animar();
-    //MOUSE INTERAGINDO
-    function moverEsfera() {
-        let mouseX =
-        (event.clientX / window.innerWidth)
-        - 0.5;
-        let mouseY =
-        (event.clientY / window.innerHeight)
-        - 0.5;
-        esfera.rotation.y =
-        mouseX * 0.5;
-        esfera.rotation.x =
-        mouseY * 0.5;
-    };
-        document.addEventListener('mousemove', moverEsfera)
         return() => {
             cancelAnimationFrame(frameId)
             gerador.dispose()
             cena.clear()
             gerador.domElement.remove()
-            document.removeEventListener('mousemove', moverEsfera)
         }
     }, [])
 

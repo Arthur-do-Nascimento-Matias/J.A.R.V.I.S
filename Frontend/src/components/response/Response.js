@@ -143,9 +143,9 @@ import { showMusicToast } from "../toaster/Toaster";
                     data.musica[1],
                     varToastRef
                 )
-                if (data.flag == true) {
+
                 mediaPlayer(player)
-            }
+            
             }
         })
     }
