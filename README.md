@@ -9,6 +9,7 @@ Is an AI based on the famous one from Marvel's Iron Man. It is able to answer qu
 -flask
 -groq
 -unidecode
+-tzdata
 
 # how to run:
 On the terminal run: 

@@ -10,6 +10,13 @@ from skills.music_player import (
 from skills.jarvis_thinking import (
     jarvis_thinking
 )
+from skills.time import (
+    perguntar_hora,
+    perguntar_data
+)
+from skills.weather import (
+    buscar_previsao_tempo
+)
 
 class Router:
 
@@ -22,8 +29,9 @@ class Router:
                 "retroceder_musica": retroceder_musica,
                 "avancar_musica": avancar_musica,
                 "acorda_crianca": acorda_crianca,
-                "perguntar_hora": 'perguntar_hora',
-                "perguntar_data": 'perguntar_data',
+                "perguntar_hora": perguntar_hora,
+                "perguntar_data": perguntar_data,
+                "buscar_previsao_tempo": buscar_previsao_tempo
         }
 
     def executar(self, comando, pergunta, modelo, textHistory):
