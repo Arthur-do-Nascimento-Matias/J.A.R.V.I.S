@@ -1,7 +1,6 @@
 import { submit } from "../response/Response"
 
 let setpergunta
-let setresposta
 let modelodeia
 let player
 let recorder = null
@@ -19,7 +18,7 @@ let aberto = false
 let processando = false
 
 /*Pede pela permissão para acessar o microfone*/
-export function setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef) {
+export function setupAudio(setPergunta, modeloDeIA, player, chatRef, toastRef) {
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         return navigator.mediaDevices.getUserMedia({
             /*Isso é essencial para o áudio ser capturado com boa qualidade*/
@@ -32,13 +31,13 @@ export function setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef
               autoGainControl: false
             }
         }) 
-        .then(stream => setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef))
+        .then(stream => setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef))
         .catch(err => console.log(err))
     }
 }
 
 /*Espera que o gravador tenha data disponivel para juntar em um blob.*/
-function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef) {
+function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef) {
     try{
     recorder = new MediaRecorder(stream)
     audioContext = new AudioContext()
@@ -73,7 +72,7 @@ function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatR
     .then(data => {
         /*Depois, a manda para uma requisição para o backend.*/
         jaFalou = false
-        submit(data, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
+        submit(data, setPergunta, modeloDeIA, player, chatRef, toastRef)
     })
     .finally(() => {
         /*Por último, desativa o microfone por completo e reseta as variáveis, isso é importante para burlar o 'Communication Mode' do Android*/
@@ -95,7 +94,7 @@ function setupStream(stream, setPergunta, setResposta, modeloDeIA, player, chatR
 }
 
 /*Ativa e desativa o gravador quando o modo do microfone está em 'aberto'*/
-export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef){
+export async function toggleMicAberto(tipoMicrofone, setPergunta, modeloDeIA, player, chatRef, toastRef){
   chunks = []
         isrecording = false
         if(processando) return
@@ -109,7 +108,7 @@ export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, m
         if(!recorder) {
             isSettingUp = true
             try {
-                await setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
+                await setupAudio(setPergunta, modeloDeIA, player, chatRef, toastRef)
             } finally {
                 isSettingUp = false
             }
@@ -126,7 +125,7 @@ export async function toggleMicAberto(tipoMicrofone, setPergunta, setResposta, m
     }
 
 /*Inicia o microfone ao apertar*/
-export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef, caseMode) {
+export async function toggleMicApertar(tipoMicrofone, setPergunta, modeloDeIA, player, chatRef, toastRef, caseMode) {
     if(caseMode) {
         document.getElementById('microfoneCase').classList.toggle('ativo')
     }
@@ -139,7 +138,7 @@ export async function toggleMicApertar(tipoMicrofone, setPergunta, setResposta, 
         if(!recorder) {
             isSettingUp = true
             try {
-                await setupAudio(setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
+                await setupAudio(setPergunta, modeloDeIA, player, chatRef, toastRef)
             } finally {
                 isSettingUp = false
             }

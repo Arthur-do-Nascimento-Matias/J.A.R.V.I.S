@@ -3,10 +3,19 @@ import requests
 
 url = "https://api.open-meteo.com/v1/forecast"
 
-def buscar_previsao_tempo():
+def buscar_previsao_tempo(localizacao=''):
 
-    coordenadas = geocoding.buscar_coordenadas()
+    if localizacao == "":
+        return {"precisaDeLocalizacao": True}
 
+    coordenadas = geocoding.buscar_coordenadas(localizacao)
+    tempo = previsao_tempo(coordenadas)
+
+    return tempo
+
+def previsao_tempo(coordenadas):
+
+    print(coordenadas)
     params = {
         "latitude": coordenadas["latitude"],
         "longitude": coordenadas["longitude"],
@@ -18,4 +27,5 @@ def buscar_previsao_tempo():
     dados = resposta.json()
 
     temperatura = dados["current"]["temperature_2m"]
-    return {"resposta": f"A previsão do tempo em Celcius é, aproximadamente, {temperatura} °C"}
+
+    return {"resposta": f"A previsão do tempo em Celcius para {coordenadas["local"]}, {coordenadas["país"]}, é, aproximadamente, {temperatura}°"}

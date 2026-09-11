@@ -3,7 +3,7 @@ import '../menu/Menu.css'
 import '../../components/microphone/micInput'
 import { toggleMicAberto } from '../../components/microphone/micInput'
 
-function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, player, toastRef, pergunta, setPergunta, resposta, setResposta, chatRef }) {
+function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, player, toastRef, pergunta, setPergunta, resposta, chatRef }) {
 
     const menuRef = useRef(null)
     const refCirculoReator = useRef(null)
@@ -18,7 +18,7 @@ function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, play
 
     useEffect(() => {
       if(tipoMicrofone == 'aberto'){
-            toggleMicAberto(tipoMicrofone, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef)
+            toggleMicAberto(tipoMicrofone, setPergunta, modeloDeIA, player, chatRef, toastRef)
           }
        }, [tipoMicrofone])
     

@@ -18,6 +18,10 @@ export default defineConfig({
       '/transcription': {
         target: 'http://localhost:5000',
         changeOrigin: true
+      },
+      '/previsaoTempo': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
       }
     }
   }

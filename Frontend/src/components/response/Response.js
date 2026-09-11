@@ -1,6 +1,7 @@
 import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 import DOMpurify from 'dompurify'
 import { showMusicToast } from "../toaster/Toaster";
+import { error } from "three/src/utils.js";
 
     let vozes = []
     let flagGerarResposta = true
@@ -42,7 +43,7 @@ import { showMusicToast } from "../toaster/Toaster";
     }
 
     /*Função responsável por fazer requisições ao backend e tratar a resposta*/
-    export function submit(pergunta, setPergunta, setResposta, modeloDeIA, player, chatRef, toastRef) {
+    export function submit(pergunta, setPergunta, modeloDeIA, player, chatRef, toastRef) {
         if(pergunta.trim() == '') {
             alert('Campo de mensagem vazio')
             return
@@ -84,69 +85,65 @@ import { showMusicToast } from "../toaster/Toaster";
         .then(response => response.json())
         .then(data => {
 
-            textHistory.push({'usuario': memoriaTemporaria, 'ia': data.resposta})
-            memoriaTemporaria = ''
-            flagGerarResposta = true
-            document.getElementById('loading')?.remove()
+        if(data.precisaDeLocalizacao) {
+            if(navigator.geolocation) {
 
-            const div = document.createElement("div");
-            div.classList.add("mensagem", "ia");
-            chatRef.current.appendChild(div);
+                navigator.geolocation.getCurrentPosition((position) => {
 
-            if(data.apresentacao){
-                document.getElementById('root').style.opacity = 0
-            }
-            div.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            })
-            let textoPlano = data.resposta;
-            typeText(div, textoPlano, 5, () => {
-                // depois que terminar de digitar → aplica markdown
-                div.innerHTML = DOMpurify.sanitize(marked.parse(data.resposta));
-            });
-            /*Formata o texto e faz a converção para voz*/
-            let respostaFormatada = data.resposta.replace(/\*/g, '').replace(/\//g, '').replace(/```[\s\S]*?```/g, '')
-            let vozSaida = new SpeechSynthesisUtterance(respostaFormatada);
-            vozSaida.lang = "pt-BR";
-            vozSaida.voice = vozes.find(
-                voz => voz.name.includes("Antonio")
-            )
-            speechSynthesis.speak(vozSaida);
-            vozSaida.onend = () => {
-                document.getElementById('root').style.opacity = 1
-            }
-            /*Verifica se a resposta da IA vem com alguma condição especial relacionada ao music player*/
-            if (data.pause) {
-                player.current.pause()
-            }
-            if (data.passar) {
-                player.current.src = data.audio
-                player.current.load()
-                player.current.play()
-            }
-            if (data.retroceder) {
-                player.current.src = data.audio
-                player.current.load()
-                player.current.play()
-            }
-            if (data.tocar) {
-                player.current.play()
-            }
-            console.log(data.audio + 'oi')
-            if (data.audio) {
-                player.current.src = data.audio
-                player.current.play()
-                showMusicToast(
-                    data.musica[0],
-                    data.musica[2],
-                    data.musica[1],
-                    varToastRef
-                )
+                    let latitude = position.coords.latitude
+                    let longitude = position.coords.longitude
 
-                mediaPlayer(player)
-            
-            }
+                    fetch(
+                        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=pt-BR`
+                    )
+                    .then(resp => resp.json())
+                    .then(data => {
+
+                    fetch('/previsaoTempo', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            latitude: latitude,
+                            longitude: longitude,
+                            país: data.address.country,
+                            local: data.address.city
+                            })
+                        })
+                        .then(resp => resp.json())
+                        .then(data => {
+                            tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef, toastRef, data)
+                    })
+                })
+            },
+        (error) => {
+            console.log(error)
+             tratamentoDeResposta(
+                pergunta,
+                setPergunta,
+                modeloDeIA,
+                player,
+                chatRef,
+                toastRef,
+                {
+                    resposta: "Não consegui obter sua localização. Informe a cidade para consultar a previsão do tempo."
+                }
+        )
+        },
+         {
+            enableHighAccuracy: false,
+            timeout: 5000,
+            maximumAge: 300000
+        }
+        )
+        }
+
+            return
+        }
+
+          tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef, toastRef, data)
+
         })
     }
         else{
@@ -174,3 +171,70 @@ import { showMusicToast } from "../toaster/Toaster";
             })
         }
     }
+
+function tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef, toastRef, data) {
+
+        textHistory.push({'usuario': memoriaTemporaria, 'ia': data.resposta})
+        memoriaTemporaria = ''
+        flagGerarResposta = true
+        document.getElementById('loading')?.remove()
+
+        const div = document.createElement("div");
+        div.classList.add("mensagem", "ia");
+        chatRef.current.appendChild(div);
+
+        if(data.apresentacao){
+            document.getElementById('root').style.opacity = 0
+        }
+        div.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        })
+        let textoPlano = data.resposta;
+
+        typeText(div, textoPlano, 5, () => {
+            // depois que terminar de digitar → aplica markdown
+            div.innerHTML = DOMpurify.sanitize(marked.parse(data.resposta));
+        });
+        /*Formata o texto e faz a converção para voz*/
+        let respostaFormatada = data.resposta.replace(/\*/g, '').replace(/\//g, '').replace(/```[\s\S]*?```/g, '')
+        let vozSaida = new SpeechSynthesisUtterance(respostaFormatada);
+        vozSaida.lang = "pt-BR";
+        vozSaida.voice = vozes.find(
+            voz => voz.name.includes("Antonio")
+        )
+        speechSynthesis.speak(vozSaida);
+        vozSaida.onend = () => {
+            document.getElementById('root').style.opacity = 1
+        }
+        /*Verifica se a resposta da IA vem com alguma condição especial relacionada ao music player*/
+        if (data.pause) {
+            player.current.pause()
+        }
+        if (data.passar) {
+            player.current.src = data.audio
+            player.current.load()
+            player.current.play()
+        }
+        if (data.retroceder) {
+            player.current.src = data.audio
+            player.current.load()
+            player.current.play()
+        }
+        if (data.tocar) {
+            player.current.play()
+        }
+        if (data.audio) {
+            player.current.src = data.audio
+            player.current.play()
+            showMusicToast(
+                data.musica[0],
+                data.musica[2],
+                data.musica[1],
+                varToastRef
+            )
+
+            mediaPlayer(player)
+        
+        }
+}

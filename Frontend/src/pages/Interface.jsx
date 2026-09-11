@@ -34,7 +34,6 @@ return (
           pergunta={pergunta}
           setPergunta={setPergunta}
           resposta={resposta}
-          setResposta={setResposta}
           chatRef={chatRef}
           />
 
@@ -56,7 +55,6 @@ return (
           pergunta={pergunta}
           setPergunta={setPergunta}
           resposta={resposta}
-          setResposta={setResposta}
           chatRef={chatRef}
           />
 

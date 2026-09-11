@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, jsonify
 from brain import stt, intents
 from brain.router import router
 from skills import music_player
+from skills import weather
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -36,9 +37,18 @@ def submit():
 #Rota que é chamada para passar a música de uma playlist
 @app.route('/nextMusic', methods=['POST'])
 def proxima():
-    print('hello')
     resposta = music_player.avancar_musica()
-    return jsonify({'audio': resposta["audio"], 'musica': resposta["musica"]})
+    return jsonify(resposta)
+
+@app.route('/previsaoTempo', methods=['POST'])
+def previsaoTempo():
+    data = request.get_json()
+    latitude = data.get("latitude")
+    longitude = data.get("longitude")
+    local = data.get("local")
+    país = data.get("país")
+    resposta = weather.previsao_tempo({"latitude": latitude, "longitude": longitude, "local": local, "país": país})
+    return {resposta}
 
 if __name__ in '__main__':
     app.run(debug=True)
