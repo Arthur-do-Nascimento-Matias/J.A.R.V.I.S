@@ -159,27 +159,33 @@ export async function toggleMicApertar(tipoMicrofone, setPergunta, modeloDeIA, p
 /*Desativa o microfone automaticamente quando não detecta mais som*/
 function detectarSilencio() {
     let silencio = 0
+
     setInterval(() => {
         analyser.getByteFrequencyData(dataArray)
+
         let volume = 0
-        for(let i=0; i < dataArray.length; i++) {
+
+        for (let i = 0; i < dataArray.length; i++) {
             volume += dataArray[i]
         }
+
         volume = volume / dataArray.length
-        if(volume >= 25 && isrecording){
+
+        if (volume >= 15 && isrecording) {
             jaFalou = true
             silencio = 0
         }
-        if(volume < 25 && jaFalou && isrecording) {
-            silencio += 100
+
+        if (volume < 25 && jaFalou && isrecording) {
+            silencio += 50
         }
-        else {
+
+        if (silencio >= 1300 && isrecording) {
+
             silencio = 0
-        }
-        if(silencio >= 1300){
             pararGravacao()
-            silencio = 0
         }
+
     }, 50)
 }
 
