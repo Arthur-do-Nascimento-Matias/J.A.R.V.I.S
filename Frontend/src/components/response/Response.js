@@ -197,7 +197,14 @@ function tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef
             div.innerHTML = DOMpurify.sanitize(marked.parse(data.resposta));
         });
         /*Formata o texto e faz a converção para voz*/
-        let respostaFormatada = data.resposta.replace(/\*/g, '').replace(/\//g, '').replace(/```[\s\S]*?```/g, '')
+
+        let respostaFormatada = data.resposta
+        .replace(/<a\b[^>]*>[\s\S]*?<\/a>/gi, '')
+        .replace(/\*/g, '')
+        .replace(/\//g, '')
+        .replace(/```[\s\S]*?```/g, '')
+        .trim();
+
         let vozSaida = new SpeechSynthesisUtterance(respostaFormatada);
         vozSaida.lang = "pt-BR";
         vozSaida.voice = vozes.find(

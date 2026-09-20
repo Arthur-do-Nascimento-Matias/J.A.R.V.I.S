@@ -29,14 +29,18 @@ def pesquisar_noticias(pesquisa):
                 ""
             )
 
+            link = noticia.get(
+                "link",
+                ""
+            )
+
             data = noticia.get(
                 "published",
                 ""
             )
 
             news.append(
-                f"{i}. {titulo}\n"
-                f". Data: {data}\n"
+                f"{i}. {titulo}\n. Data: {data}\n<a href='{link}'>Leia a notícia completa</a>"
             )
 
     return {
