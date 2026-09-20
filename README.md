@@ -10,6 +10,7 @@ Is an AI based on the famous one from Marvel's Iron Man. It is able to answer qu
 -groq
 -unidecode
 -tzdata
+-feedparser
 
 # how to run:
 On the terminal run: 
