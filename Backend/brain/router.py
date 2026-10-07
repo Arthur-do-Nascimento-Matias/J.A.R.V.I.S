@@ -20,6 +20,9 @@ from skills.weather import (
 from skills.news import (
     pesquisar_noticias
 )
+from skills.apresentacao import (
+    apresentar_se
+)
 
 class Router:
 
@@ -35,7 +38,8 @@ class Router:
                 "perguntar_hora": perguntar_hora,
                 "perguntar_data": perguntar_data,
                 "buscar_previsao_tempo": buscar_previsao_tempo,
-                "pesquisar_noticias": pesquisar_noticias
+                "pesquisar_noticias": pesquisar_noticias,
+                "apresentar-se": apresentar_se
         }
 
     def executar(self, comando, pergunta, modelo, textHistory):

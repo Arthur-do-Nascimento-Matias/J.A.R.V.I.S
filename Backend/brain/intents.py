@@ -13,7 +13,8 @@ INTENTS = [
     "perguntar_hora",
     "perguntar_data",
     "buscar_previsao_tempo",
-    "pesquisar_noticias"
+    "pesquisar_noticias",
+    "apresentar-se"
 ]
 
 #Usa o modelo de IA da Minimax para responder perguntas relacionadas a programação e desenvolvimento.
@@ -32,7 +33,8 @@ Intenções permitidas: INTENTS = [
     "perguntar_hora",
     "perguntar_data",
     "buscar_previsao_tempo",
-    "pesquisar_noticias"
+    "pesquisar_noticias",
+    "apresentar-se"
 ]
 
 1. O campo "intent" deve conter SOMENTE uma das intents permitidas.
