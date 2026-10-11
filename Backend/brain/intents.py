@@ -37,6 +37,10 @@ Intenções permitidas: INTENTS = [
     "apresentar-se"
 ]
 
+Caso o input do usuário não se encaixe na lista de intents a intenção de deve ser conversação
+
+Funçãp padrão: conversação
+
 1. O campo "intent" deve conter SOMENTE uma das intents permitidas.
 2. Nunca invente uma nova intent.
 3. Sempre retorne JSON válido.
@@ -46,6 +50,7 @@ Intenções permitidas: INTENTS = [
 7. Não use markdown.
 8. Não coloque o JSON dentro de ```.
 9. Coloque os parametros necessários, como nome da música, localizacão e entre outros
+11. Priorize a conversação. Não use qualquer função adicional se o usuário não pedir por elas !important
 
             Perguntas do usuario: 
             {pergunta}
@@ -64,7 +69,7 @@ def Minimax(entrada):
     mensagem = prompt.format(pergunta=entrada) 
 
     response = chat(
-        model='gpt-oss:120b-cloud',
+        model='gemma4:31b-cloud',
         messages=[{"role": "user", "content": mensagem}]
     )
 
