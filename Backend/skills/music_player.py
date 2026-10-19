@@ -1,138 +1,219 @@
-import yt_dlp
+import os
 import json
 import random
+from pathlib import Path
 
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
+
+PASTA_ATUAL = Path(__file__).resolve().parent
+ARQUIVO_PLAYLIST = PASTA_ATUAL / "playlist" / "playlist.json"
+
+# Estado do player
 i = 0
 paused = False
-flagPassar = False
 flagPlaylist = False
 flagMusic = False
 flagPausar = False
-playlist = ''
+playlist = []
+musica_atual = None
 
-#Busca uma música individual
+
+def pesquisar_youtube(nome):
+    """Pesquisa uma música usando a API oficial do YouTube."""
+
+    if not YOUTUBE_API_KEY:
+        raise RuntimeError("YOUTUBE_API_KEY não configurada.")
+
+    response = requests.get(
+        "https://www.googleapis.com/youtube/v3/search",
+        params={
+            "part": "snippet",
+            "q": nome,
+            "type": "video",
+            "videoEmbeddable": "true",
+            "maxResults": 1,
+            "key": YOUTUBE_API_KEY
+        },
+        timeout=15
+    )
+
+    response.raise_for_status()
+
+    dados = response.json()
+    resultados = dados.get("items", [])
+
+    if not resultados:
+        return None
+
+    video = resultados[0]
+    video_id = video["id"]["videoId"]
+    titulo = video["snippet"]["title"]
+    artista = video["snippet"]["channelTitle"]
+
+    return {
+        "youtubeId": video_id,
+        "musica": [titulo, artista, None]
+    }
+
+
+def resposta_musica(musica, mensagem):
+    """Cria a resposta esperada pelo frontend."""
+
+    if not musica:
+        return {
+            "resposta": "Não encontrei essa música."
+        }
+
+    return {
+        "resposta": mensagem,
+        "youtubeId": musica["youtubeId"],
+        "musica": musica["musica"],
+        "acao": "reproduzir"
+    }
+
+
 def tocar_musica(nome):
+    global flagPlaylist, flagMusic
+    global flagPausar, musica_atual
 
-    global flagPlaylist
-    global flagMusic
+    musica = pesquisar_youtube(nome)
+
+    if not musica:
+        return {"resposta": "Não encontrei essa música."}
 
     flagMusic = True
     flagPlaylist = False
+    flagPausar = False
+    musica_atual = musica
 
-    ydl_opts = {
-        "format": "bestaudio/best",
-        "noplaylist": True
-    }
+    return resposta_musica(musica, f"Tocando {nome}")
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        resultado = ydl.extract_info(f"ytsearch1:{nome}", download=False)
 
-        musica = resultado["entries"][0]
-
-        url = musica["url"]
-
-        titulo = musica.get("title")
-        artista = musica.get("artist") or musica.get("uploader")
-        album = musica.get("album")
-
-    return {"resposta": "Tocando " + nome, "audio": url, "musica": [titulo, artista, album]}
-
-#Busca músicas da playlist
-def buscar_playlist(nome=''):
+def buscar_playlist(nome=""):
     global i
 
-    if i >= len(nome):
-        i = 0
+    lista = nome if isinstance(nome, list) else playlist
 
-    ydl_opt = {
-        "format": "bestaudio/best",
-        "noplaylist": True
-    }
+    if not lista:
+        return None
 
-    with yt_dlp.YoutubeDL(ydl_opt) as ydl:
-        resultado = ydl.extract_info(
-            f"ytsearch:{nome[i]}",
-            download=False
-        )
+    i %= len(lista)
 
-        musica = resultado["entries"][0]
+    return pesquisar_youtube(lista[i])
 
-        url = musica["url"]
-        titulo = musica.get("title")
-        artista = musica.get("artist") or musica.get("uploader")
-        album = musica.get("album")
-
-    i += 1
-
-    return [url, titulo, artista, album]
 
 def tocar_playlist():
+    global i, playlist
+    global flagPlaylist, flagMusic, flagPausar
+    global musica_atual
 
-    global flagPlaylist
-    global flagMusic
+    with open(ARQUIVO_PLAYLIST, "r", encoding="utf8") as arquivo:
+        dados = json.load(arquivo)
+
+    playlist = list(dados.get("rock", []))
+
+    if not playlist:
+        return {"resposta": "A playlist está vazia."}
+
+    random.shuffle(playlist)
+
+    i = 0
+
+    musica = buscar_playlist()
+
+    if not musica:
+        return {"resposta": "Não encontrei a música da playlist."}
 
     flagPlaylist = True
     flagMusic = False
+    flagPausar = False
+    musica_atual = musica
 
-    with open("skills/playlist/playlist.json", "r", encoding="utf8") as arquivo:
-        global playlist
-        playlist = json.load(arquivo)
-        random.shuffle(playlist["rock"])
+    return resposta_musica(musica, "Tocando playlist")
 
-        musica = buscar_playlist(playlist["rock"])
-
-        return {"resposta": "Tocando playlist", "audio": musica[0], "musica": musica[1:3]}
 
 def parar_musica():
-    global flagPausar
+    global flagPausar, paused
+
+    if not musica_atual:
+        return {"resposta": "Não há música tocando."}
 
     flagPausar = True
-    return {"resposta": "música pausada", "pause": True}
+    paused = True
+
+    return {
+        "resposta": "Música pausada",
+        "pause": True,
+        "acao": "pausar"
+    }
+
 
 def despausar_musica():
-    global flagPausar
+    global flagPausar, paused
 
-    if not flagPausar: 
-        return {"resposta": "Não há música pausada"}
+    if not flagPausar:
+        return {"resposta": "Não há música pausada."}
 
     flagPausar = False
-    return {"resposta": "Música despausada", "tocar": True}
+    paused = False
+
+    return {
+        "resposta": "Música despausada",
+        "tocar": True,
+        "acao": "continuar"
+    }
+
 
 def retroceder_musica():
+    global i, musica_atual, flagPausar
 
-    global flagPlaylist
-    print(flagPlaylist)
-    if flagPlaylist == False:
-        return {"resposta": "Não há playlist tocando"}
+    if not flagPlaylist or not playlist:
+        return {"resposta": "Não há playlist tocando."}
 
-    global i
+    i = (i - 1) % len(playlist)
 
-    if i == 0:
-        return {"resposta": "Não há música para retroceder"}
-    i -= 1
+    musica = buscar_playlist()
 
-    musica = tocar_playlist()
-    return {"resposta": "Música retrocedida", "audio": musica["audio"], "musica": musica["musica"]}
+    if not musica:
+        return {"resposta": "Não encontrei a música anterior."}
+
+    musica_atual = musica
+    flagPausar = False
+
+    return resposta_musica(musica, "Música retrocedida")
+
 
 def avancar_musica():
+    global i, musica_atual, flagPausar
 
-    global flagPlaylist
-    global i
+    if not flagPlaylist or not playlist:
+        return {"resposta": "Não há playlist tocando."}
 
-    if flagPlaylist == False:
-        return {"resposta": "Não há playlist tocando"}
+    i = (i + 1) % len(playlist)
 
-    i += 1
-    musica = tocar_playlist()
-    return {"resposta": "Música avançada", "audio": musica["audio"], "musica": musica["musica"]}
+    musica = buscar_playlist()
+
+    if not musica:
+        return {"resposta": "Não encontrei a próxima música."}
+
+    musica_atual = musica
+    flagPausar = False
+
+    return resposta_musica(musica, "Música avançada")
+
 
 def acorda_crianca():
+    musica = tocar_musica(
+        "Should I Stay or Should I Go The Clash"
+    )
 
-    global flagPlaylist 
-    global flagMusic 
+    if musica.get("youtubeId"):
+        musica["resposta"] = "Bem-vindo, senhor."
 
-    flagPlaylist = False
-    flagMusic = True
-
-    musica = tocar_musica('should i stay or should i go the clash')
-    return {"resposta": "Bem vindo senhor", "audio": musica["audio"], "musica": musica["musica"]}
+    return musica
+    

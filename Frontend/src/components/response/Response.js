@@ -153,6 +153,118 @@ const API_URL = import.meta.env.VITE_API_URL;
         }
     }
 
+    let youtubePlayer = null;
+    let youtubePronto = null;
+
+    function carregarYouTube() {
+        if (youtubePronto) return youtubePronto;
+
+        youtubePronto = new Promise((resolve) => {
+            if (window.YT?.Player) {
+                resolve(window.YT);
+                return;
+            }
+
+            const callbackAnterior = window.onYouTubeIframeAPIReady;
+
+            window.onYouTubeIframeAPIReady = () => {
+                callbackAnterior?.();
+                resolve(window.YT);
+            };
+
+            if (!document.querySelector(
+                'script[src="https://www.youtube.com/iframe_api"]'
+            )) {
+                const script = document.createElement("script");
+                script.src = "https://www.youtube.com/iframe_api";
+                document.head.appendChild(script);
+            }
+        });
+
+        return youtubePronto;
+    }
+
+    async function reproduzirYouTube(data) {
+        if (!data.youtubeId) return;
+
+        const YT = await carregarYouTube();
+
+        if (!youtubePlayer) {
+            const container = document.createElement("div");
+
+            container.id = "jarvis-youtube-player";
+
+            Object.assign(container.style, {
+                position: "fixed",
+                right: "20px",
+                bottom: "20px",
+                width: "390px",
+                height: "220px",
+                maxWidth: "calc(100vw - 40px)",
+                zIndex: "9999",
+                background: "#000"
+            });
+
+            const elemento = document.createElement("div");
+            elemento.id = "youtube-iframe";
+
+            container.appendChild(elemento);
+            document.body.appendChild(container);
+
+            youtubePlayer = new YT.Player("youtube-iframe", {
+                width: "100%",
+                height: "100%",
+                videoId: data.youtubeId,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    playsinline: 1
+                },
+                events: {
+                    onReady: (evento) => {
+                        evento.target.playVideo();
+                    },
+                    onStateChange: async (evento) => {
+                        if (evento.data !== YT.PlayerState.ENDED) {
+                            return;
+                        }
+
+                        try {
+                            const resposta = await fetch(
+                                `${API_URL}/nextMusic`,
+                                { method: "POST" }
+                            );
+
+                            if (!resposta.ok) {
+                                throw new Error("Erro ao avançar música");
+                            }
+
+                            const proxima = await resposta.json();
+
+                            if (proxima.youtubeId) {
+                                await reproduzirYouTube(proxima);
+                            }
+                        } catch (erro) {
+                            console.error("Erro na playlist:", erro);
+                        }
+                    }
+                }
+            });
+
+        } else {
+            youtubePlayer.loadVideoById(data.youtubeId);
+        }
+
+        if (data.musica) {
+            showMusicToast(
+                data.musica[0],
+                data.musica[2],
+                data.musica[1],
+                varToastRef
+            );
+        }
+    }
+
     /*Essa função é responsável por passar a música quando uma música da playlist acaba*/
     function mediaPlayer(player) {
         player.current.onended = async function() {
@@ -217,33 +329,46 @@ function tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef
             document.getElementById('root').style.opacity = 1
         }
         /*Verifica se a resposta da IA vem com alguma condição especial relacionada ao music player*/
-        if (data.pause) {
-            player.current.pause()
-        }
-        if (data.passar) {
-            player.current.src = data.audio
-            player.current.load()
-            player.current.play()
-        }
-        if (data.retroceder) {
-            player.current.src = data.audio
-            player.current.load()
-            player.current.play()
-        }
-        if (data.tocar) {
-            player.current.play()
-        }
-        if (data.audio) {
-            player.current.src = data.audio
-            player.current.play()
-            showMusicToast(
-                data.musica[0],
-                data.musica[2],
-                data.musica[1],
-                varToastRef
-            )
 
-            mediaPlayer(player)
-        
+        // Reprodução pelo YouTube
+        if (data.youtubeId) {
+            reproduzirYouTube(data).catch(console.error);
         }
+
+        // Pausar música
+        if (data.pause || data.acao === "pausar") {
+            if (youtubePlayer) {
+                youtubePlayer.pauseVideo();
+            } else {
+                player.current?.pause();
+            }
+        }
+
+        // Continuar reprodução
+        if (data.tocar || data.acao === "continuar") {
+            if (youtubePlayer) {
+                youtubePlayer.playVideo();
+            } else {
+                player.current?.play();
+            }
+        }
+
+        // Compatibilidade com o player antigo
+        if (data.audio && !data.youtubeId) {
+            player.current.src = data.audio;
+            player.current.load();
+            player.current.play();
+
+            if (data.musica) {
+                showMusicToast(
+                    data.musica[0],
+                    data.musica[2],
+                    data.musica[1],
+                    varToastRef
+                );
+            }
+
+            mediaPlayer(player);
+        }
+
 }
