@@ -28,12 +28,7 @@ function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, play
     <>
         <div className='pulso'>
             <div className="circuloDeFora" onClick={() => abrirMenu(menuRef, refCirculoReator, refBarra)} ref={refCirculoReator}>
-            <div className="circuloDeDentro" ref={circuloDeDentro}>
-                <img
-                    src="/src/assets/Iron-Man-Arc-Reactor-Core-Avengers-Logo-3-removebg-preview.png"
-                    alt="Reator Arc"
-                />
-                </div>
+            <div className="circuloDeDentro" ref={circuloDeDentro}></div>
             <div className="barraCirculo" ref={refBarra}></div>
         </div>
         </div>
