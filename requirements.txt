@@ -9,3 +9,5 @@ scikit-learn
 requests
 feedparser
 tzdata
+flask-cors
+python-dotenv
