@@ -3,8 +3,6 @@ import '../menu/Menu.css'
 import '../../components/microphone/micInput'
 import { toggleMicAberto } from '../../components/microphone/micInput'
 
-import reator from "../assets/Iron-Man-Arc-Reactor-Core-Avengers-Logo-3-removebg-preview.png";
-
 function Menu({ setModeloDeIA, modeloDeIA, setTipoMicrofone, tipoMicrofone, player, toastRef, pergunta, setPergunta, resposta, chatRef }) {
 
     const menuRef = useRef(null)
