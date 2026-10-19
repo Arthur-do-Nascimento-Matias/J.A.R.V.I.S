@@ -61,7 +61,7 @@ function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef)
             blob = null
             return
         }
-        fetch('/transcription', {
+        fetch(`${API_URL}/transcription`, {
             method: 'POST',
             headers: {
                 'Content-Type': blob.type

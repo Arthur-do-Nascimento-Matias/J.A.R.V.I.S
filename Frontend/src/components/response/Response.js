@@ -3,6 +3,8 @@ import DOMpurify from 'dompurify'
 import { showMusicToast } from "../toaster/Toaster";
 import { error } from "three/src/utils.js";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
     let vozes = []
     let flagGerarResposta = true
     let varToastRef
@@ -71,7 +73,7 @@ import { error } from "three/src/utils.js";
         `
         chatRef.current.appendChild(loading)
 
-        fetch('/submit', {
+        fetch(`${API_URL}/submit`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -99,7 +101,7 @@ import { error } from "three/src/utils.js";
                     .then(resp => resp.json())
                     .then(data => {
 
-                    fetch('/previsaoTempo', {
+                    fetch(`${API_URL}/previsaoTempo`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -154,7 +156,7 @@ import { error } from "three/src/utils.js";
     /*Essa função é responsável por passar a música quando uma música da playlist acaba*/
     function mediaPlayer(player) {
         player.current.onended = async function() {
-            fetch('/nextMusic', {
+            fetch(`${API_URL}/nextMusic`, {
                 method: 'POST'
             })
             .then(response => response.json())
