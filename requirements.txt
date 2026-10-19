@@ -6,3 +6,6 @@ groq
 unidecode
 dotenv
 scikit-learn
+requests
+feedparser
+tzdata

@@ -1,6 +1,25 @@
-from ollama import chat
-from langchain_core.prompts import PromptTemplate
+
+import os
 import json
+
+from ollama import Client
+from dotenv import load_dotenv
+from langchain_core.prompts import PromptTemplate
+
+load_dotenv()
+
+# Configuração do Ollama Cloud
+api_key = os.getenv("OLLAMA_API_KEY")
+
+if not api_key:
+    raise RuntimeError("OLLAMA_API_KEY não configurada no .env")
+
+client = Client(
+    host="https://ollama.com",
+    headers={
+        "Authorization": f"Bearer {api_key}"
+    }
+)
 
 INTENTS = [
     "tocar_musica",
@@ -17,70 +36,76 @@ INTENTS = [
     "apresentar-se"
 ]
 
-#Usa o modelo de IA da Minimax para responder perguntas relacionadas a programação e desenvolvimento.
-#Apenas é ativado quando a opção 'programação' está selecionada no frontend
-prompt = PromptTemplate.from_template("""Indetifique a intenção do que o usuário digita e os respectivos parametros
-Não use caracteres especias
+# Identifica a intenção do usuário e seus parâmetros
+prompt = PromptTemplate.from_template("""
+Identifique a intenção do que o usuário digita
+e os respectivos parâmetros.
 
-Intenções permitidas: INTENTS = [
-    "tocar_musica",
-    "tocar_playlist",
-    "parar_musica",
-    "despausar_musica",
-    "retroceder_musica",
-    "avancar_musica",
-    "acorda_crianca",
-    "perguntar_hora",
-    "perguntar_data",
-    "buscar_previsao_tempo",
-    "pesquisar_noticias",
-    "apresentar-se"
-]
+Não utilize caracteres especiais fora do JSON.
 
-Caso o input do usuário não se encaixe na lista de intents a intenção de deve ser conversação
+Intenções permitidas:
+{intents}
 
-Funçãp padrão: conversação
+Caso a entrada do usuário não corresponda
+a nenhuma intenção, utilize "conversa".
 
-1. O campo "intent" deve conter SOMENTE uma das intents permitidas.
-2. Nunca invente uma nova intent.
+Intenção padrão: conversa
+
+Regras:
+1. O campo "intent" deve conter somente uma
+   das intenções permitidas ou "conversa".
+2. Nunca invente uma nova intenção.
 3. Sempre retorne JSON válido.
 4. "parameters" deve ser sempre um objeto JSON.
-5. Se não houver parâmetros, use {{}}.
+5. Se não houver parâmetros, utilize {{}}.
 6. Não escreva explicações.
-7. Não use markdown.
-8. Não coloque o JSON dentro de ```.
-9. Coloque os parametros necessários, como nome da música, localizacão e entre outros
-11. Priorize a conversação. Não use qualquer função adicional se o usuário não pedir por elas !important
+7. Não utilize Markdown.
+8. Não coloque o JSON dentro de blocos de código.
+9. Inclua os parâmetros necessários, como
+   nome da música, localização, entre outros.
+10. Priorize a conversa. Não utilize funções
+    adicionais sem uma solicitação explícita.
 
-            Perguntas do usuario: 
-            {pergunta}
+Pergunta do usuário:
+{pergunta}
 
-            Devolva a resposta nesse formato JSON: 
+Retorne somente este formato JSON:
 
-        {{
-            "intent": "",
-            "parameters": "",
-        }}
+{{
+    "intent": "conversa",
+    "parameters": {{}}
+}}
+""")
 
-            """)
+def Minimax(entrada):
 
-def Minimax(entrada): 
+    mensagem = prompt.format(
+        pergunta=entrada,
+        intents=", ".join(INTENTS)
+    )
 
-    mensagem = prompt.format(pergunta=entrada) 
-
-    response = chat(
-        model='gemma4:31b-cloud',
-        messages=[{"role": "user", "content": mensagem}]
+    response = client.chat(
+        model="gemma4:31b",
+        messages=[
+            {
+                "role": "user",
+                "content": mensagem
+            }
+        ],
+        format="json",
+        stream=False
     )
 
     resultado = json.loads(response.message.content)
 
-    if resultado["intent"] not in INTENTS:
+    # Valida a intenção
+    if resultado.get("intent") not in INTENTS:
         resultado["intent"] = "conversa"
 
-    if not isinstance(resultado["parameters"], dict):
-        resultado["parameters"] = {}    
+    # Garante que os parâmetros sejam um dicionário
+    if not isinstance(resultado.get("parameters"), dict):
+        resultado["parameters"] = {}
 
     print(resultado)
+
     return resultado
-    
