@@ -46,7 +46,7 @@ def jarvis_thinking(pergunta, textHistory, modelo):
     )
 
     response = client.chat(
-        model=modelo or "gemma4:31b",
+        model="gemma4:31b",
         messages=[
             {
                 "role": "user",
