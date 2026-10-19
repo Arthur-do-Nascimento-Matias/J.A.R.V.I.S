@@ -11,3 +11,4 @@ feedparser
 tzdata
 flask-cors
 python-dotenv
+gunicorn
