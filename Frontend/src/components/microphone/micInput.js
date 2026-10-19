@@ -1,5 +1,7 @@
 import { submit } from "../response/Response"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 let setpergunta
 let modelodeia
 let player
