@@ -127,11 +127,11 @@ window.abrirModal = abrirModal
             '<span>NOME:</span> <br>  Arthur N. Matias',
             '<span>FUNÇÃO:</span> <br> Dev Back-End',
             '<span>FOCO:</span> <br> Desenvolvedor da A.I <br> Modelagem 3D',
-            arthur,
+            null,
             ironman
         )}>
 
-            <img src={arthur} alt="Arthur" className="foto-card" />
+            <img src={null} alt="Arthur" className="foto-card" />
             <div className="content"></div>
             <h2>Arthur Matias</h2>
             <p>Dev Back-end</p>
@@ -141,11 +141,11 @@ window.abrirModal = abrirModal
             '<span>NOME:</span> <br>  Kauã Nascimento',
             '<span>FUNÇÃO:</span> <br> Dev Back-End',
             '<span>FOCO:</span> <br> 2º Dev da A.I <br> Modelagem 3D',
-            kaua,
+            null,
             nosurprises  
             )}>
 
-            <img src={kaua} alt="Kaua" className="foto-card" />
+            <img src={null} alt="Kaua" className="foto-card" />
             <div className="content"></div>
             <h2>Kauã Nascimento</h2>
             <p>Dev Back-End</p>
@@ -155,11 +155,11 @@ window.abrirModal = abrirModal
             '<span>NOME:</span> <br>  Theo C. Melo',
             '<span>FUNÇÃO:</span> <br> Dev Front-End',
             '<span>FOCO:</span> <br> Identidade Visual <br> Experiência Interativa',
-            theo,
+            null,
             themanwhosoldtheworld
             )}>
 
-            <img src={theo} alt="Theo" className="foto-card" />
+            <img src={null} alt="Theo" className="foto-card" />
                 <div className="content"></div>
                 <h2>Theo Melo</h2>
                     <p>Dev Front-End</p>
@@ -169,11 +169,11 @@ window.abrirModal = abrirModal
             '<span>NOME:</span> <br>  Wellington S. Dias',
             '<span>FUNÇÃO:</span> <br> Dev Front-End',
             '<span>FOCO:</span> <br> Identidade Visual <br> Experiência Interativa',
-            wellington,
+            null,
             comeasyouare
             )}>
                 
-            <img src={wellington} alt="Wellington" className="foto-card" />
+            <img src={null} alt="Wellington" className="foto-card" />
             <div className="content">
                     <h2>Wellington Dias</h2>
                     <p>Dev Front-End</p>
