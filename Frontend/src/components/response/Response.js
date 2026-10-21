@@ -197,12 +197,13 @@ const API_URL = import.meta.env.VITE_API_URL;
             Object.assign(container.style, {
                 position: "fixed",
                 right: "20px",
-                bottom: "20px",
-                width: "390px",
-                height: "220px",
+                top: "20px",
+                width: "200px",
+                height: "200px",
                 maxWidth: "calc(100vw - 40px)",
                 zIndex: "9999",
-                background: "#000"
+                background: "#000",
+                display: "none"
             });
 
             const elemento = document.createElement("div");
