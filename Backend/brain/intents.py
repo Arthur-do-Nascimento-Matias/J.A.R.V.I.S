@@ -65,6 +65,7 @@ Regras:
    nome da música, localização, entre outros.
 10. Priorize a conversa. Não utilize funções
     adicionais sem uma solicitação explícita.
+11. Caso o pedido para previsão do tempo não inclua o nome de um lugar retorne o nome vazio
 
 Pergunta do usuário:
 {pergunta}

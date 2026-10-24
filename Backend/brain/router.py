@@ -53,6 +53,12 @@ class Router:
         if not funcao:
             return jarvis_thinking(pergunta, textHistory, modelo)
 
-        return(funcao(*parameters.values()))
+        if intent == "buscar_previsao_tempo":
+            return funcao(
+                localizacao=parameters.get("localizacao", ""),
+                dia=parameters.get("data", parameters.get("dia"))
+            )
+
+        return funcao(*parameters.values())
          
 router = Router()

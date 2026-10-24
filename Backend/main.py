@@ -48,12 +48,13 @@ def previsaoTempo():
     longitude = data.get("longitude")
     local = data.get("local")
     país = data.get("país")
-    resposta = weather.previsao_tempo({"latitude": latitude, "longitude": longitude, "local": local, "país": país})
-    return {resposta}
+    dia = data.get("dia")
+    resposta = weather.previsao_tempo({"latitude": latitude, "longitude": longitude, "local": local, "país": país}, dia)
+    return jsonify(resposta)
 
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000)),
-        debug=False
+        debug=True
     )
