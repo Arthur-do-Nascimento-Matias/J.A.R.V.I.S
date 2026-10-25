@@ -4,6 +4,7 @@ import { submit } from "../response/Response"
 //const API_URL = import.meta.env.VITE_API_URL;
 const API_URL = "http://127.0.0.1:5000";
 
+let apertado
 let vozes = []
 let setpergunta
 let modelodeia
@@ -44,20 +45,28 @@ export function setupAudio(setPergunta, modeloDeIA, player, chatRef, toastRef) {
 /*Espera que o gravador tenha data disponivel para juntar em um blob.*/
 function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef) {
     try{
-    recorder = new MediaRecorder(stream)
-    audioContext = new AudioContext()
-    const source = audioContext.createMediaStreamSource(stream)
-    analyser = audioContext.createAnalyser()
-    analyser.fftSize = 512
-    source.connect(analyser)
-    dataArray = new Uint8Array(
-        analyser.frequencyBinCount
+        recorder = new MediaRecorder(stream)
+        audioContext = new AudioContext()
+        const source = audioContext.createMediaStreamSource(stream)
+        analyser = audioContext.createAnalyser()
+        analyser.fftSize = 512
+        source.connect(analyser)
+        dataArray = new Uint8Array(
+            analyser.frequencyBinCount
     )
     detectarSilencio()
     recorder.ondataavailable = e => {
         chunks.push(e.data)
     }
     recorder.onstop = e => {
+
+        let vozSaida = new SpeechSynthesisUtterance("Entendi");
+        vozSaida.lang = "pt-BR";
+        vozSaida.voice = vozes.find(
+            voz => voz.name.includes("Antonio")
+        )
+        speechSynthesis.speak(vozSaida);
+
         if(jaFalou || !aberto){
         processando = true
         blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' })
@@ -70,12 +79,6 @@ function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef)
         speechSynthesis.onvoiceschanged = () => {
             vozes = speechSynthesis.getVoices();
         };
-        let vozSaida = new SpeechSynthesisUtterance("Processando pergunta");
-        vozSaida.lang = "pt-BR";
-        vozSaida.voice = vozes.find(
-            voz => voz.name.includes("Antonio")
-        )
-        speechSynthesis.speak(vozSaida);
 
         /*Depois, a manda para uma requisição para o backend.*/
         jaFalou = false
@@ -142,6 +145,7 @@ export async function toggleMicAberto(tipoMicrofone, setPergunta, modeloDeIA, pl
 
 /*Inicia o microfone ao apertar*/
 export async function toggleMicApertar(tipoMicrofone, setPergunta, modeloDeIA, player, chatRef, toastRef, caseMode) {
+    apertado = true
     if(caseMode) {
         document.getElementById('microfoneCase').classList.toggle('ativo')
     }
@@ -177,6 +181,7 @@ function detectarSilencio() {
     let silencio = 0
 
     setInterval(() => {
+        if(!apertado) {
         analyser.getByteFrequencyData(dataArray)
 
         let volume = 0
@@ -201,12 +206,13 @@ function detectarSilencio() {
             silencio = 0
             pararGravacao()
         }
-
-    }, 50)
+        }
+    }, 50)  
 }
 
 function pararGravacao() {
     if(!isrecording) return
     isrecording = false
+    apertado = false
     recorder.stop()
 }
