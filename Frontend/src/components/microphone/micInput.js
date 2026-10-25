@@ -1,7 +1,10 @@
 import { submit } from "../response/Response"
 
-const API_URL = import.meta.env.VITE_API_URL;
 
+//const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "http://127.0.0.1:5000";
+
+let vozes = []
 let setpergunta
 let modelodeia
 let player
@@ -63,6 +66,19 @@ function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef)
             blob = null
             return
         }
+
+        speechSynthesis.onvoiceschanged = () => {
+            vozes = speechSynthesis.getVoices();
+        };
+        let vozSaida = new SpeechSynthesisUtterance("Processando pergunta");
+        vozSaida.lang = "pt-BR";
+        vozSaida.voice = vozes.find(
+            voz => voz.name.includes("Antonio")
+        )
+        speechSynthesis.speak(vozSaida);
+
+        /*Depois, a manda para uma requisição para o backend.*/
+        jaFalou = false
         fetch(`${API_URL}/transcription`, {
             method: 'POST',
             headers: {
@@ -72,8 +88,6 @@ function setupStream(stream, setPergunta, modeloDeIA, player, chatRef, toastRef)
     })
     .then(response => response.text())
     .then(data => {
-        /*Depois, a manda para uma requisição para o backend.*/
-        jaFalou = false
         submit(data, setPergunta, modeloDeIA, player, chatRef, toastRef)
     })
     .finally(() => {

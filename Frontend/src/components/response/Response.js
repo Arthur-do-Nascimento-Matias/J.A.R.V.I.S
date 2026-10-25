@@ -3,7 +3,8 @@ import DOMpurify from 'dompurify'
 import { showMusicToast } from "../toaster/Toaster";
 import { error } from "three/src/utils.js";
 
-const API_URL = import.meta.env.VITE_API_URL;
+//const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "http://127.0.0.1:5000";
 
     let vozes = []
     let flagGerarResposta = true
@@ -88,6 +89,9 @@ const API_URL = import.meta.env.VITE_API_URL;
         .then(data => {
 
         if(data.precisaDeLocalizacao) {
+
+            let dia = data.dia
+
             if(navigator.geolocation) {
 
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -110,7 +114,8 @@ const API_URL = import.meta.env.VITE_API_URL;
                             latitude: latitude,
                             longitude: longitude,
                             país: data.address.country,
-                            local: data.address.city
+                            local: data.address.city,
+                            dia: dia
                             })
                         })
                         .then(resp => resp.json())
@@ -288,7 +293,7 @@ const API_URL = import.meta.env.VITE_API_URL;
     }
 
 function tratamentoDeResposta(pergunta, setPergunta, modeloDeIA, player, chatRef, toastRef, data) {
-
+    
         textHistory.push({'usuario': memoriaTemporaria, 'ia': data.resposta})
         memoriaTemporaria = ''
         flagGerarResposta = true
